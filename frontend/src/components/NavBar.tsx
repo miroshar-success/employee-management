@@ -15,14 +15,28 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { MyHeader, LinkText } from "./style/Navbar";
 
-const pages = [
-  ["Home", "/home"],
-  ["Projects", "/projects"],
-  ["Profile", "/profile"],
-];
-const settings = ["Dashboard", "Logout"];
-
 const ResponsiveAppBar = () => {
+  const [isadmin, setIsAdmin] = React.useState(true);
+
+  let pages;
+  if (isadmin) {
+    pages = [
+      ["Home", "/home"],
+      ["My Profile", "/myprofile"],
+      ["My Projects", "/myprojects"],
+      ["Projects", "/projects"],
+      ["Profiles", "/profile"],
+    ];
+  } else {
+    pages = [
+      ["Home", "/home"],
+      ["My Profile", "/myprofile"],
+      ["My Projects", "/myprojects"],
+    ];
+  }
+
+  const settings = ["Logout"];
+
   const [anchorElNav, setAnchorElNav] = React.useState<
     null | HTMLElement | any
   >(null);
