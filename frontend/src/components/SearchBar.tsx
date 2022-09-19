@@ -4,7 +4,13 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 
-const SearchBar = ({ setSearchQuery }: any) => {
+const SearchBar = ({ setSearchQuery }: any, { searchQuery }: any) => {
+  const search = (e: any) => {
+    console.log(e.target.value);
+    // console.log("e", e.currnetTarget.value);
+    setSearchQuery(e.target.value);
+  };
+  console.log(searchQuery);
   return (
     <div>
       <form>
@@ -13,6 +19,9 @@ const SearchBar = ({ setSearchQuery }: any) => {
           label="Search By Email"
           variant="outlined"
           size="medium"
+          onInput={(e: React.FormEvent<HTMLInputElement>) => {
+            search(e);
+          }}
         />
 
         <IconButton type="submit" aria-label="search">
