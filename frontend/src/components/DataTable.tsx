@@ -29,11 +29,26 @@ type searchData = string | null;
 
 const DataTable = () => {
   const [searchQuery, setSearchQuery] = React.useState<searchData>("");
+  // console.log("s", searchQuery);
+
+  const searchData = (searchQuery: string | null, customData: any) => {
+    if (searchQuery) {
+      return customData.filter((data: any) => {
+        console.log(data.email);
+        return data.email.toLowerCase().includes(searchQuery.trim());
+      });
+    }
+    return customData;
+  };
+
+  const filterData = searchData(searchQuery, customData);
+  // console.log("fi", searchData(searchQuery, customData));
+  // console.log("f", filterData);
 
   return (
     <Box sx={{ m: 2 }}>
       <Box>
-        <SearchBar setSearchQuery={setSearchQuery} />
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </Box>
       <Box
         sx={{
@@ -59,7 +74,7 @@ const DataTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customData.map((row) => (
+            {(searchQuery ? filterData : customData).map((row: any) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
