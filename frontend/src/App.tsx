@@ -11,6 +11,7 @@ import AddProject from "./pages/AddProject";
 import AddEmployee from "./pages/AddEmployee";
 
 function App() {
+  const [isprofiles, setIsProfiles] = React.useState<any>(true);
   return (
     <BrowserRouter>
       <NavBar />
@@ -19,8 +20,18 @@ function App() {
         <Route path="/home" element={<Homepage />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/myprojects" element={<MyProjects />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/profile" element={<Profiles />} />
+        <Route
+          path="/projects"
+          element={
+            <Projects isprofiles={isprofiles} setIsProfiles={setIsProfiles} />
+          }
+        />
+        <Route
+          path="/profiles"
+          element={
+            <Profiles isprofiles={isprofiles} setIsProfiles={setIsProfiles} />
+          }
+        />
         <Route path="/addProject" element={<AddProject />} />
         <Route path="/addEmployee" element={<AddEmployee />} />
       </Routes>

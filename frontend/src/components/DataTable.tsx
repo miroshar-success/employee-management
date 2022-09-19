@@ -6,36 +6,31 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Hidden from "@mui/material/Hidden";
 import SearchBar from "./SearchBar";
-
-const customData = [
-  {
-    name: "User",
-    email: "user@gmail.com",
-    role: "user",
-    status: "active",
-  },
-  {
-    name: "admin",
-    email: "admin@gmail.com",
-    role: "admin",
-    status: "deactive",
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 type searchData = string | null;
 
-const DataTable = () => {
+const DataTable = ({
+  customData,
+  isprofiles,
+}: {
+  customData: any;
+  isprofiles: any;
+}) => {
   const [searchQuery, setSearchQuery] = React.useState<searchData>("");
-  // console.log("s", searchQuery);
+
+  const navigate = useNavigate();
 
   const searchData = (searchQuery: string | null, customData: any) => {
     if (searchQuery) {
       return customData.filter((data: any) => {
         console.log(data.email);
-        return data.email.toLowerCase().includes(searchQuery.trim());
+        return isprofiles
+          ? data.email.toLowerCase().includes(searchQuery.trim())
+          : data.name.toLowerCase().includes(searchQuery.trim());
       });
     }
     return customData;
@@ -47,8 +42,17 @@ const DataTable = () => {
 
   return (
     <Box sx={{ m: 2 }}>
-      <Box>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Button
+          variant="contained"
+          sx={{ height: 40 }}
+          onClick={() => {
+            isprofiles ? navigate("/addEmployee") : navigate("/addProject");
+          }}
+        >
+          Add
+        </Button>
       </Box>
       <Box
         sx={{
@@ -58,18 +62,31 @@ const DataTable = () => {
           m: 2,
         }}
       >
-        <h2>Projects</h2>
+        {isprofiles ? <h1>Profiles</h1> : <h1>Projects</h1>}
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <Hidden smDown>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Status</TableCell>
-                <TableCell align="right">Role</TableCell>
-              </Hidden>
+              {isprofiles ? (
+                <>
+                  <TableCell>Name</TableCell>
+                  <Hidden smDown>
+                    <TableCell align="right">Email</TableCell>
+                    <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">Role</TableCell>
+                  </Hidden>
+                </>
+              ) : (
+                <>
+                  <TableCell>Name</TableCell>
+                  <Hidden smDown>
+                    <TableCell align="right">Project Name</TableCell>
+                    <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">Deadline</TableCell>
+                  </Hidden>
+                </>
+              )}
               <TableCell align="right">Deatils</TableCell>
             </TableRow>
           </TableHead>
@@ -79,14 +96,29 @@ const DataTable = () => {
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <Hidden smDown>
-                  <TableCell align="right">{row.email}</TableCell>
-                  <TableCell align="right">{row.status}</TableCell>
-                  <TableCell align="right">{row.role}</TableCell>
-                </Hidden>
+                {isprofiles ? (
+                  <>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <Hidden smDown>
+                      <TableCell align="right">{row.email}</TableCell>
+                      <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{row.role}</TableCell>
+                    </Hidden>
+                  </>
+                ) : (
+                  <>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <Hidden smDown>
+                      <TableCell align="right">{row.client_name}</TableCell>
+                      <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{row.deadline}</TableCell>
+                    </Hidden>
+                  </>
+                )}
                 <TableCell align="right">actions</TableCell>
               </TableRow>
             ))}
