@@ -4,10 +4,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-import {
-  DateRangePicker,
-  DateRange,
-} from "@mui/x-date-pickers-pro/DateRangePicker";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 
 const DateRangePick = ({
   ProjectDurationValue,

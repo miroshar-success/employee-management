@@ -14,16 +14,17 @@ const AddProject = () => {
   const [ProjectDurationValue, setProjectDurationValue] = React.useState<
     DateRange<Dayjs>
   >([null, null]);
-
+  console.log("po", ProjectDurationValue);
   const formik = useFormik({
     initialValues: {
       name: "",
       client: "",
       pm: "",
       status: "",
-      duration: "",
+      duration: {},
     },
     onSubmit: (values) => {
+      values.duration = ProjectDurationValue;
       alert(JSON.stringify(values, null, 2));
     },
   });
@@ -104,7 +105,14 @@ const AddProject = () => {
             helperText={formik.touched.status && formik.errors.status}
             sx={{ marginBottom: 2 }}
           />
+          {/* <DateRangePick
+            ProjectDurationValue={ProjectDurationValue}
+            setProjectDurationValue={setProjectDurationValue}
+          /> */}
           <DateRangePick
+            id="duration"
+            name="duration"
+            value={ProjectDurationValue}
             ProjectDurationValue={ProjectDurationValue}
             setProjectDurationValue={setProjectDurationValue}
           />
