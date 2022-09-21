@@ -23,6 +23,9 @@ app.use("/api/v1/user", userInfo);
 app.use("/api/v1/addprojects", addProjects);
 app.use("/api/v1/projects", projects);
 
+//test optimization
+app.use("/api/v1/createEmployee", employee);
+
 app.listen(process.env.PORT || 3001, () =>
   console.log(`Listening on port ${process.env.PORT}`)
 );

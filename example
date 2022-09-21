@@ -1,0 +1,3 @@
+PORT=5000
+MONGO_URL=mongodb+srv://sahed:sahed123@cluster0.ojmh2nk.mongodb.net/management?retryWrites=true&w=majority
+JWT_KEY="secret"

@@ -7,14 +7,14 @@
 .env
 
 /backend/build
-/backend/config
+
 /backend/server.js
 
 \backend/build
-\backend/config
+
 \backend/server.js
 
 build
-config
+
 server.js
 
