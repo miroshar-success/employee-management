@@ -13,7 +13,7 @@ const DatePick = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-        label="Basic example"
+        label="Joining Date"
         value={joiningDateInfo}
         onChange={(newValue) => {
           setJoiningDateInfo(newValue);

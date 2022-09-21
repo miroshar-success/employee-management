@@ -18,6 +18,8 @@ type employeeInfoType = {
   department: string;
   joiningDate: string | Date | null;
   projectName: string;
+  projectResponsiblity: string;
+  projectStatus: string;
   bonus: string;
   totalLeave: string;
   admin: string;
@@ -27,7 +29,7 @@ const AddEmployeeForm = () => {
   const [joiningDateInfo, setJoiningDateInfo] = React.useState<Date | null>(
     new Date()
   );
-  console.log(joiningDateInfo);
+
   const [employeeDetails, setEmployeeDeatils] =
     React.useState<employeeInfoType>({
       step: 1,
@@ -42,10 +44,14 @@ const AddEmployeeForm = () => {
       department: "",
       joiningDate: "",
       projectName: "",
+      projectResponsiblity: "",
+      projectStatus: "",
       bonus: "",
       totalLeave: "",
       admin: "",
     });
+
+  console.log({ employeeDetails });
 
   const continues = (e: any) => {
     e.preventDefault();
@@ -80,6 +86,8 @@ const AddEmployeeForm = () => {
     department,
     joiningDate,
     projectName,
+    projectResponsiblity,
+    projectStatus,
     bonus,
     totalLeave,
     admin,
@@ -97,6 +105,8 @@ const AddEmployeeForm = () => {
     department,
     joiningDate,
     projectName,
+    projectResponsiblity,
+    projectStatus,
     bonus,
     totalLeave,
     admin,
@@ -133,9 +143,16 @@ const AddEmployeeForm = () => {
           />
         );
       case 2:
-        return <AddEmployeeProfessional />;
+        return (
+          <AddEmployeeProject
+            handleChange={handleChange}
+            values={values}
+            continues={continues}
+            back={back}
+          />
+        );
       case 3:
-        return <AddEmployeeProject />;
+        return <AddEmployeeProfessional />;
       case 4:
         return <SuccessInfo />;
       default:
