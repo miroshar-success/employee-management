@@ -32,7 +32,7 @@ const addEmployee = async (req: Request, res: Response): Promise<void> => {
   const newEmpolyee = await Employee.create({
     name,
     email,
-    password: pass,
+    password: hash,
     role,
     phone,
     address,
