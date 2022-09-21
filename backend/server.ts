@@ -6,7 +6,7 @@ import addEmployee from "./routes/addUser.route";
 import loginUser from "./routes/login.route";
 import userInfo from "./routes/userInfo.route";
 //test
-import employee from "./routes/test/employee.route";
+//import employee from "./routes/test/employee.route";
 
 dotenv.config();
 connectDB();
