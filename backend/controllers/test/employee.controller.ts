@@ -57,4 +57,19 @@ const addEmployee = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { addEmployee };
+const getEmployeeProject = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const findProject = await Employee.find({
+    "currentProjects.projectName": req.body.name,
+  });
+  if (findProject) {
+    res.status(200).send(findProject);
+  } else {
+    res.status(400);
+    throw new Error("No project found");
+  }
+};
+
+export { addEmployee, getEmployeeProject };
