@@ -8,6 +8,16 @@ export type existingEmployee = {
   address: string;
   salary: number;
   joingDate: Date;
+  currentProjects: {
+    projectName: string;
+    responsiblity: string;
+    status: string;
+  };
+  professionalInfo: {
+    bonus: number;
+    totalLeave: number;
+    recentLeave: Array<string>;
+  };
   createdAt: Date;
   updatedAt: Date;
 };

@@ -1,4 +1,4 @@
-import User from "../models/userModel";
+import EmployeeInfo from "../models/employeeInfoModel";
 import { Request, Response } from "express";
 import bycrpt from "bcrypt";
 import generatedToken from "../utils/jwtToken";
@@ -7,10 +7,12 @@ import { existingEmployee } from "../controllers/types/addUser.types";
 const loginUser = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
-  const employeeExists: existingEmployee | null = await User.findOne({ email });
+  const employeeExists: existingEmployee | null = await EmployeeInfo.findOne({
+    email,
+  });
 
   if (!employeeExists) {
-    res.status(400);
+    res.status(400).send({ message: "Invalid email or password" });
     throw new Error("User does not exists");
   }
 
