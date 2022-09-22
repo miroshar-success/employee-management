@@ -1,7 +1,6 @@
 import express from "express";
 import {
   allEmployeeInfo,
-  employeeOwnInfo,
   employeeInfo,
 } from "../controllers/employeeInfo.contollers";
 import auth from "../middlewires/auth";
