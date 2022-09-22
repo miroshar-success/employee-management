@@ -20,4 +20,20 @@ const employeeInfo = async (req: Request, res: Response): Promise<void> => {
   res.status(200).json(user);
 };
 
-export { allEmployeeInfo, employeeInfo };
+const editEmployeeInfo = async (req: any, res: Response): Promise<void> => {
+  const user = await EmployeeInfo.findByIdAndUpdate(req.params.id, req.body);
+  if (!user) {
+    res.status(400).send({ message: "User not found" });
+    throw new Error("User not found");
+  }
+  res.status(200).json({ message: "User updated successfully" });
+};
+
+const deleteEmployeeInfo = async (req: any, res: Response): Promise<void> => {
+  const user = await EmployeeInfo.findByIdAndDelete(req.params.id);
+  if (!user) {
+    res.status(400).json({ user, message: "Oops! Something went wrong" });
+  }
+  res.status(200).send({ user, message: "User Sucessfully Deleted" });
+};
+export { allEmployeeInfo, employeeInfo, editEmployeeInfo, deleteEmployeeInfo };
