@@ -61,6 +61,9 @@ const employeeInfoSchema = new mongoose.Schema(
         type: Array,
       },
     },
+    image: {
+      type: String,
+    },
   },
   {
     timestamps: true,
