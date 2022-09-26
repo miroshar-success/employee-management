@@ -10,6 +10,7 @@ import MyProjects from "./pages/MyProjects";
 import AddProject from "./pages/AddProject";
 import AddEmployee from "./pages/AddEmployee";
 import NotFound from "./pages/NotFound";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   const [isprofiles, setIsProfiles] = React.useState<any>(true);
@@ -35,6 +36,7 @@ function App() {
         />
         <Route path="/addProject" element={<AddProject />} />
         <Route path="/addEmployee" element={<AddEmployee />} />
+        <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
