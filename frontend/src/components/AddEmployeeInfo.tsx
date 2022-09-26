@@ -25,8 +25,8 @@ const AddEmployeeInfo = ({
     >
       <Box
         sx={{
-          height: { md: 800, xs: 730, sm: 450 },
-          width: { md: 600, xs: 320, sm: 400 },
+          height: { md: 850, xs: 730, sm: 450 },
+          width: { md: 650, xs: 320, sm: 400 },
           bgcolor: "#A5C9CA",
           p: 2,
           display: "flex",
@@ -128,6 +128,15 @@ const AddEmployeeInfo = ({
             <MenuItem value="engineer">Engineer</MenuItem>
             <MenuItem value="admin">Admin</MenuItem>
           </Select>
+          <br />
+          <input
+            accept="image/*"
+            name="image"
+            id="contained-button-file"
+            type="file"
+            style={{ padding: 10 }}
+          />
+
           <br />
           <DatePick
             onChange={handleChange("joiningDate")}

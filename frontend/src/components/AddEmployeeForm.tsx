@@ -23,6 +23,7 @@ type employeeInfoType = {
   bonus: string;
   totalLeave: string;
   admin: string;
+  image?: string;
 };
 
 const AddEmployeeForm = () => {
@@ -49,6 +50,7 @@ const AddEmployeeForm = () => {
       bonus: "",
       totalLeave: "",
       admin: "",
+      image: "",
     });
 
   console.log({ employeeDetails });
@@ -91,6 +93,7 @@ const AddEmployeeForm = () => {
     bonus,
     totalLeave,
     admin,
+    image,
   } = employeeDetails;
 
   const values = [
@@ -110,6 +113,7 @@ const AddEmployeeForm = () => {
     bonus,
     totalLeave,
     admin,
+    image,
   ];
 
   // render(){
@@ -152,7 +156,14 @@ const AddEmployeeForm = () => {
           />
         );
       case 3:
-        return <AddEmployeeProfessional />;
+        return (
+          <AddEmployeeProfessional
+            handleChange={handleChange}
+            values={values}
+            continues={continues}
+            back={back}
+          />
+        );
       case 4:
         return <SuccessInfo />;
       default:
