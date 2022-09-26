@@ -8,7 +8,11 @@ import employeeInfo from "./routes/employeeInfo.route";
 import addProjects from "./routes/addProject.route";
 import projects from "./routes/projects.route";
 import profile from "./routes/profile.route";
+<<<<<<< HEAD
 import imageUpload from "./routes/imageUpload.route";
+=======
+//import { notFound } from "./middlewires/error";
+>>>>>>> main
 //import employee from "./routes/test/employee.route";
 
 dotenv.config();
@@ -22,7 +26,7 @@ app.use(express.json());
 
 app.use("/api/v1/addemployee", addEmployee);
 app.use("/api/v1/login", loginUser);
-app.use("/api/v1/employee", employeeInfo);
+//app.use("/api/v1/employee", employeeInfo);
 app.use("/api/v1/addprojects", addProjects);
 app.use("/api/v1/projects", projects);
 app.use("/api/v1/profile", profile);
@@ -30,6 +34,8 @@ app.use("/api/v1/uploads", imageUpload);
 
 //test optimization
 //app.use("/api/v1/createEmployee", employee);
+
+//app.use(notFound);
 
 app.listen(process.env.PORT || 3001, () =>
   console.log(`Listening on port ${process.env.PORT}`)
