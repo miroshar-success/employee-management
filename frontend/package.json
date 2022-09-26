@@ -16,6 +16,7 @@
     "@types/node": "^16.11.57",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
+    "animate.css": "^4.1.1",
     "dayjs": "^1.11.5",
     "formik": "^2.2.9",
     "moment": "^2.29.4",
