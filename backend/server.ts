@@ -17,7 +17,13 @@ connectDB();
 
 const app: Application = express();
 
-app.use(cors());
+const allowedOrigins = ["http://localhost:3000"];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+};
+
+app.use(cors(options));
 
 app.use(express.json());
 
