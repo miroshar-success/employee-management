@@ -114,10 +114,12 @@ const DataTable = ({
                       {row.name}
                     </TableCell>
                     <Hidden smDown>
-                      <TableCell align="right">{row.client_name}</TableCell>
+                      <TableCell align="right">{row.client}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
                       <TableCell align="right">{row.pm}</TableCell>
-                      <TableCell align="right">{row.deadline}</TableCell>
+                      <TableCell align="right">
+                        {row.duration[0]}-{row.duration[0]}
+                      </TableCell>
                     </Hidden>
                   </>
                 )}
