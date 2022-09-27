@@ -25,7 +25,7 @@ const ResponsiveAppBar = () => {
       ["My Profile", "/myprofile"],
       ["My Projects", "/myprojects"],
       ["Projects", "/projects"],
-      ["Profiles", "/profile"],
+      ["Profiles", "/profiles"],
     ];
   } else {
     pages = [

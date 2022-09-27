@@ -2,13 +2,32 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
+  const navigate = useNavigate();
   return (
     <div>
-      <Typography variant="h3" sx={{ textAlign: "center", padding: 2 }}>
-        My Profile
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <Typography variant="h3" sx={{ textAlign: "center", padding: 2 }}>
+          My Profile
+        </Typography>
+        <Button
+          color="primary"
+          variant="contained"
+          sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+          onClick={() => navigate("/changePassword")}
+        >
+          Change Password
+        </Button>
+      </Box>
       <div>
         <Box>
           <Box sx={{ display: { md: "flex" } }}>

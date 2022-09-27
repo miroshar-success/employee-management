@@ -81,13 +81,14 @@ const DataTable = ({
                 <>
                   <TableCell>Name</TableCell>
                   <Hidden smDown>
-                    <TableCell align="right">Project Name</TableCell>
+                    <TableCell align="right">Client Name</TableCell>
                     <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">PM</TableCell>
                     <TableCell align="right">Deadline</TableCell>
                   </Hidden>
                 </>
               )}
-              <TableCell align="right">Deatils</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -115,11 +116,25 @@ const DataTable = ({
                     <Hidden smDown>
                       <TableCell align="right">{row.client_name}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{row.pm}</TableCell>
                       <TableCell align="right">{row.deadline}</TableCell>
                     </Hidden>
                   </>
                 )}
-                <TableCell align="right">actions</TableCell>
+                {isprofiles ? (
+                  <TableCell align="right">Details</TableCell>
+                ) : (
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      sx={{ m: 1 }}
+                      onClick={() => navigate("/addProject/:id")}
+                    >
+                      Edit
+                    </Button>
+                    <Button variant="contained">Delete</Button>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

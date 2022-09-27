@@ -35,6 +35,7 @@ function App() {
           }
         />
         <Route path="/addProject" element={<AddProject />} />
+        <Route path="/addProject/:id" element={<AddProject />} />
         <Route path="/addEmployee" element={<AddEmployee />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="*" element={<NotFound />} />
