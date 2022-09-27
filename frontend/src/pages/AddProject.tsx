@@ -1,10 +1,8 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
-import { Typography } from "@mui/material";
 import DateRangePick from "../components/DateRangePick";
 import "./style/AddProject.css";
 import { Dayjs } from "dayjs";
@@ -28,6 +26,7 @@ const AddProject = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
   return (
     <div
       style={{

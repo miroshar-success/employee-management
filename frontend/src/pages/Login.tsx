@@ -3,20 +3,32 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-//import { formInfo } from "./types/Login";
+import { useEffect } from "react";
+import axios from "axios";
+//import usePost from "../customHooks/usePost";
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState("");
-  const [userLogin, setUserLogin] = React.useState(false);
-  const [isAdmin, setIsAdmin] = React.useState(false);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement> | any) => {
     e.preventDefault();
-    setEmail(e.target.email.value);
-    setPassword(e.target.password.value);
+
+    fetchData();
   };
+
+  const fetchData = () => {
+    axios
+      .post("http://localhost:5000/api/v1/login", {
+        email: email,
+        password: password,
+      })
+      .then((res: any) => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.employeeExists));
+      });
+  };
+
   return (
     <div
       style={{
@@ -53,6 +65,7 @@ const Login = () => {
             id="email"
             label="Email Address"
             name="email"
+            onChange={(e: any) => setEmail(e.target.value)}
             autoComplete="email"
             autoFocus
           />
@@ -64,6 +77,7 @@ const Login = () => {
             label="Password"
             type="password"
             id="password"
+            onChange={(e: any) => setPassword(e.target.value)}
             autoComplete="current-password"
           />
           <Button
