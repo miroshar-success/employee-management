@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,6 +10,8 @@ import { Box, Button } from "@mui/material";
 import Hidden from "@mui/material/Hidden";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
+import { isLogin, isAdmin } from "../utils/auth";
+import axios from "axios";
 
 type searchData = string | null;
 
@@ -39,6 +41,28 @@ const DataTable = ({
   const filterData = searchData(searchQuery, customData);
   // console.log("fi", searchData(searchQuery, customData));
   // console.log("f", filterData);
+
+  useEffect(() => {
+    if (!isLogin() && !isAdmin()) {
+      navigate("/");
+    }
+  });
+
+  const handleProjectDelete = async (id: any) => {
+    const removeData = await axios.delete(
+      `http://localhost:5000/api/v1/projects/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (removeData.data.message) {
+      alert(removeData.data.message);
+      window.location.reload();
+    }
+  };
 
   return (
     <Box sx={{ m: 2 }}>
@@ -121,9 +145,24 @@ const DataTable = ({
                         {row.duration[0]}-{row.duration[0]}
                       </TableCell>
                     </Hidden>
+                    <TableCell align="right">
+                      <Button
+                        variant="contained"
+                        sx={{ m: 1 }}
+                        onClick={() => navigate(`/addProject/${row._id}`)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => handleProjectDelete(row._id)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
                   </>
                 )}
-                {isprofiles ? (
+                {/* {isprofiles ? (
                   <TableCell align="right">Details</TableCell>
                 ) : (
                   <TableCell align="right">
@@ -134,9 +173,9 @@ const DataTable = ({
                     >
                       Edit
                     </Button>
-                    <Button variant="contained">Delete</Button>
+                    <Button variant="contained" onClick={()=>handleProjectDelete()}>Delete</Button>
                   </TableCell>
-                )}
+                )} */}
               </TableRow>
             ))}
           </TableBody>

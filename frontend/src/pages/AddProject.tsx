@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import Button from "@mui/material/Button";
@@ -7,12 +7,20 @@ import DateRangePick from "../components/DateRangePick";
 import "./style/AddProject.css";
 import { Dayjs } from "dayjs";
 import { DateRange } from "@mui/x-date-pickers-pro/DateRangePicker";
+import { isLogin, isAdmin } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const AddProject = () => {
+  let params = useParams();
+  const projectId = params.id;
+
   const [ProjectDurationValue, setProjectDurationValue] = React.useState<
     DateRange<Dayjs>
   >([null, null]);
-  console.log("po", ProjectDurationValue);
+  const navigate = useNavigate();
+  // console.log("po", ProjectDurationValue);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -23,9 +31,83 @@ const AddProject = () => {
     },
     onSubmit: (values) => {
       values.duration = ProjectDurationValue;
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
+
+      projectId ? updateData() : postData();
     },
   });
+
+  useEffect(() => {
+    if (!isAdmin()) {
+      navigate("/");
+    }
+    if (projectId) {
+      const getData = async () => {
+        const res = await axios.get(
+          `http://localhost:5000/api/v1/projects/${projectId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const data = await res.data;
+        console.log("data", data);
+        formik.values.name = data.name;
+        formik.values.client = data.client;
+        formik.values.pm = data.pm;
+        formik.values.status = data.status;
+        formik.values.duration = data.duration;
+        setProjectDurationValue(data.duration);
+      };
+      getData();
+    }
+  }, []);
+
+  const postData = async () => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/addprojects",
+        formik.values,
+        {
+          headers: headers,
+        }
+      );
+      const json = await res.data;
+      res.data.successMessage
+        ? alert(res.data.successMessage)
+        : alert(res.data.errorMessage);
+      navigate("/projects");
+    } catch (error: any) {
+      alert(error.response.data);
+    }
+  };
+
+  const updateData = async () => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/api/v1/projects/${projectId}`,
+        formik.values,
+        {
+          headers: headers,
+        }
+      );
+      const json = await res.data;
+
+      navigate("/projects");
+    } catch (error: any) {
+      alert(error.response.data);
+    }
+  };
 
   return (
     <div
@@ -53,9 +135,15 @@ const AddProject = () => {
         }}
         className="project-form"
       >
-        <h3 style={{ textAlign: "center", marginTop: "-1px" }}>
-          Add New Project
-        </h3>
+        {projectId ? (
+          <h3 style={{ textAlign: "center", marginTop: "-1px" }}>
+            Edit Project
+          </h3>
+        ) : (
+          <h3 style={{ textAlign: "center", marginTop: "-1px" }}>
+            Add New Project
+          </h3>
+        )}
         <br />
         <br />
         <form onSubmit={formik.handleSubmit}>
@@ -105,9 +193,9 @@ const AddProject = () => {
             sx={{ marginBottom: 2 }}
           />
           {/* <DateRangePick
-            ProjectDurationValue={ProjectDurationValue}
-            setProjectDurationValue={setProjectDurationValue}
-          /> */}
+          ProjectDurationValue={ProjectDurationValue}
+          setProjectDurationValue={setProjectDurationValue}
+        /> */}
           <DateRangePick
             id="duration"
             name="duration"
