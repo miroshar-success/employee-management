@@ -2,8 +2,28 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import axios from "axios";
 
 const ChangePassword = () => {
+  const [newPassword, setNewPassword] = React.useState("");
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const res = await axios.put(
+      "http://localhost:5000/api/v1/profile/changePassword",
+      { password: newPassword },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    const data = await res.data;
+    console.log("data", data);
+    alert(data.message);
+  };
+
   return (
     <div
       style={{
@@ -24,12 +44,14 @@ const ChangePassword = () => {
       >
         <h1>Change Password</h1>
         <br />
-        <form>
+        <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
             id="password"
             name="password"
             label="New Password"
+            type="password"
+            onChange={(e) => setNewPassword(e.target.value)}
             sx={{ marginBottom: 2 }}
           />
           <Button color="primary" variant="contained" fullWidth type="submit">

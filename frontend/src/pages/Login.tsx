@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+//import { isLogin } from "../utils/auth";
 //import usePost from "../customHooks/usePost";
 
 const Login = () => {
@@ -16,11 +17,10 @@ const Login = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement> | any) => {
     e.preventDefault();
 
-    fetchData();
-    navigate("/home");
+    postData();
   };
 
-  const fetchData = () => {
+  const postData = () => {
     axios
       .post("http://localhost:5000/api/v1/login", {
         email: email,
@@ -29,6 +29,11 @@ const Login = () => {
       .then((res: any) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.employeeExists));
+        navigate("/home");
+      })
+      .catch((err: any) => {
+        console.log(err.response);
+        alert(err.response.data);
       });
   };
 
