@@ -68,15 +68,17 @@ const DataTable = ({
     <Box sx={{ m: 2 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <Button
-          variant="contained"
-          sx={{ height: 40 }}
-          onClick={() => {
-            isprofiles ? navigate("/addEmployee") : navigate("/addProject");
-          }}
-        >
-          Add
-        </Button>
+        {isAdmin() && (
+          <Button
+            variant="contained"
+            sx={{ height: 40 }}
+            onClick={() => {
+              isprofiles ? navigate("/addEmployee") : navigate("/addProject");
+            }}
+          >
+            Add
+          </Button>
+        )}
       </Box>
       <Box
         sx={{
@@ -112,7 +114,10 @@ const DataTable = ({
                   </Hidden>
                 </>
               )}
-              <TableCell align="right">Actions</TableCell>
+              {isprofiles && <TableCell align="right">Action</TableCell>}
+              {!isprofiles && isAdmin() && (
+                <TableCell align="right">Action</TableCell>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -131,6 +136,7 @@ const DataTable = ({
                       <TableCell align="right">{row.status}</TableCell>
                       <TableCell align="right">{row.role}</TableCell>
                     </Hidden>
+                    <TableCell align="right">Details</TableCell>
                   </>
                 ) : (
                   <>
@@ -145,21 +151,23 @@ const DataTable = ({
                         {row.duration[0]}-{row.duration[0]}
                       </TableCell>
                     </Hidden>
-                    <TableCell align="right">
-                      <Button
-                        variant="contained"
-                        sx={{ m: 1 }}
-                        onClick={() => navigate(`/addProject/${row._id}`)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="contained"
-                        onClick={() => handleProjectDelete(row._id)}
-                      >
-                        Delete
-                      </Button>
-                    </TableCell>
+                    {isAdmin() && (
+                      <TableCell align="right">
+                        <Button
+                          variant="contained"
+                          sx={{ m: 1 }}
+                          onClick={() => navigate(`/addProject/${row._id}`)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="contained"
+                          onClick={() => handleProjectDelete(row._id)}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
+                    )}
                   </>
                 )}
                 {/* {isprofiles ? (

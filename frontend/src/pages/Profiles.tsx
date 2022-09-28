@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DataTable from "../components/DataTable";
+import { isAdmin } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 const customData = [
   {
@@ -25,7 +27,14 @@ const Profiles = ({
   isprofiles: any;
   setIsProfiles: any;
 }) => {
-  setIsProfiles(true);
+  const navigate = useNavigate();
+  useEffect(() => {
+    setIsProfiles(true);
+    if (!isAdmin()) {
+      navigate("/");
+    }
+  });
+
   return (
     <div>
       <DataTable customData={customData} isprofiles={isprofiles} />

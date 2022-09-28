@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { isLogin } from "../utils/auth";
+import axios from "axios";
 
 const MyProfile = () => {
   const navigate = useNavigate();
+  const [profile, setProfile] = React.useState<any>();
+
+  useEffect(() => {
+    if (!isLogin()) {
+      navigate("/");
+    }
+    fecthData();
+  }, []);
+
+  const fecthData = async () => {
+    try {
+      const response = await axios("http://localhost:5000/api/v1/profile", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await response.data;
+      console.log("data", data);
+      setProfile(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log({ profile });
   return (
     <div>
       <Box
@@ -44,7 +72,7 @@ const MyProfile = () => {
               className="animate__animated animate__fadeInDownBig"
             >
               <Typography
-                variant="h6"
+                variant="h4"
                 sx={{
                   textAlign: "center",
                   pb: 5,
@@ -56,15 +84,15 @@ const MyProfile = () => {
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <div>
-                  <p>Name:{}</p>
-                  <p>Role:{}</p>
-                  <p>Email:{}</p>
-                  <p>Phone:{}</p>
+                  <p>Name: {profile.name}</p>
+                  <p>Role: {profile.role}</p>
+                  <p>Email: {profile.email}</p>
+                  <p>Phone: {profile.phone}</p>
                 </div>
                 <div>
-                  <p>Address:{}</p>
-                  <p>Salary:{}</p>
-                  <p>Joinning Date:{}</p>
+                  <p>Address: {profile.address}</p>
+                  <p>Salary: {profile.salary}</p>
+                  <p>Joinning Date: {profile.joingDate}</p>
                 </div>
               </Box>
             </Card>
@@ -82,14 +110,14 @@ const MyProfile = () => {
             >
               <div>
                 <Typography
-                  variant="h6"
+                  variant="h4"
                   sx={{ textAlign: "center", pb: 5, fontWeight: "bold" }}
                 >
                   Project Information
                 </Typography>
-                <p>Project Name:{}</p>
-                <p>Resposiblity:{}</p>
-                <p>Staus:{}</p>
+                <p>Project Name: {profile.currentProjects.projectName}</p>
+                <p>Resposiblity: {profile.currentProjects.responsiblity}</p>
+                <p>Staus: {profile.currentProjects.status}</p>
               </div>
             </Card>
           </Box>
@@ -107,13 +135,13 @@ const MyProfile = () => {
           >
             <div>
               <Typography
-                variant="h6"
+                variant="h4"
                 sx={{ textAlign: "center", pb: 5, fontWeight: "bold" }}
               >
                 Performance Information
               </Typography>
-              <p>Bonus:{}</p>
-              <p>Total Leaves:{}</p>
+              <p>Bonus: {profile.professionalInfo.bonus}</p>
+              <p>Total Leaves: {profile.professionalInfo.totalLeave}</p>
             </div>
           </Card>
         </Box>
