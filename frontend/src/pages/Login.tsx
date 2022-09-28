@@ -3,18 +3,21 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 //import usePost from "../customHooks/usePost";
 
 const Login = () => {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState("");
 
+  const navigate = useNavigate();
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement> | any) => {
     e.preventDefault();
 
     fetchData();
+    navigate("/home");
   };
 
   const fetchData = () => {

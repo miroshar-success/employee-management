@@ -59,6 +59,12 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/";
+  };
+
   return (
     <AppBar position="static">
       <MyHeader>
@@ -174,7 +180,10 @@ const ResponsiveAppBar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    {/* <Typography textAlign="center">{setting}</Typography> */}
+                    <Button variant="contained" onClick={handleLogout}>
+                      LogOut
+                    </Button>
                   </MenuItem>
                 ))}
               </Menu>
