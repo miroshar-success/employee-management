@@ -99,7 +99,6 @@ const DataTable = ({
                   <TableCell>Name</TableCell>
                   <Hidden smDown>
                     <TableCell align="right">Email</TableCell>
-                    <TableCell align="right">Status</TableCell>
                     <TableCell align="right">Role</TableCell>
                   </Hidden>
                 </>
@@ -133,10 +132,17 @@ const DataTable = ({
                     </TableCell>
                     <Hidden smDown>
                       <TableCell align="right">{row.email}</TableCell>
-                      <TableCell align="right">{row.status}</TableCell>
+
                       <TableCell align="right">{row.role}</TableCell>
                     </Hidden>
-                    <TableCell align="right">Details</TableCell>
+                    <TableCell align="right">
+                      <Button
+                        variant="contained"
+                        onClick={() => navigate(`/myprofile/${row._id}`)}
+                      >
+                        Details
+                      </Button>
+                    </TableCell>
                   </>
                 ) : (
                   <>
@@ -148,7 +154,7 @@ const DataTable = ({
                       <TableCell align="right">{row.status}</TableCell>
                       <TableCell align="right">{row.pm}</TableCell>
                       <TableCell align="right">
-                        {row.duration[0]}-{row.duration[0]}
+                        {row.duration[0]}-{row.duration[1]}
                       </TableCell>
                     </Hidden>
                     {isAdmin() && (

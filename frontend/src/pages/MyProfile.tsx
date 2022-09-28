@@ -6,17 +6,35 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { isLogin } from "../utils/auth";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const MyProfile = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = React.useState<any>();
+  const [profile, setProfile] = React.useState<any>({});
+
+  const params = useParams();
+  const profileId = params.id;
 
   useEffect(() => {
     if (!isLogin()) {
       navigate("/");
     }
-    fecthData();
+    profileId ? profileDetails() : fecthData();
   }, []);
+
+  const profileDetails = async () => {
+    const response = await axios(
+      `http://localhost:5000/api/v1/employee/${profileId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    console.log("response", response.data);
+    setProfile(response.data);
+  };
 
   const fecthData = async () => {
     try {
@@ -84,15 +102,15 @@ const MyProfile = () => {
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <div>
-                  <p>Name: {profile.name}</p>
-                  <p>Role: {profile.role}</p>
-                  <p>Email: {profile.email}</p>
-                  <p>Phone: {profile.phone}</p>
+                  <p>Name: {profile?.name}</p>
+                  <p>Role: {profile?.role}</p>
+                  <p>Email: {profile?.email}</p>
+                  <p>Phone: {profile?.phone}</p>
                 </div>
                 <div>
-                  <p>Address: {profile.address}</p>
-                  <p>Salary: {profile.salary}</p>
-                  <p>Joinning Date: {profile.joingDate}</p>
+                  <p>Address: {profile?.address}</p>
+                  <p>Salary: {profile?.salary}</p>
+                  <p>Joinning Date: {profile?.joingDate}</p>
                 </div>
               </Box>
             </Card>
@@ -115,9 +133,9 @@ const MyProfile = () => {
                 >
                   Project Information
                 </Typography>
-                <p>Project Name: {profile.currentProjects.projectName}</p>
-                <p>Resposiblity: {profile.currentProjects.responsiblity}</p>
-                <p>Staus: {profile.currentProjects.status}</p>
+                <p>Project Name: {profile?.currentProjects?.projectName}</p>
+                <p>Resposiblity: {profile?.currentProjects?.responsiblity}</p>
+                <p>Staus: {profile?.currentProjects?.status}</p>
               </div>
             </Card>
           </Box>
@@ -140,8 +158,8 @@ const MyProfile = () => {
               >
                 Performance Information
               </Typography>
-              <p>Bonus: {profile.professionalInfo.bonus}</p>
-              <p>Total Leaves: {profile.professionalInfo.totalLeave}</p>
+              <p>Bonus: {profile?.professionalInfo?.bonus}</p>
+              <p>Total Leaves: {profile?.professionalInfo?.totalLeave}</p>
             </div>
           </Card>
         </Box>
