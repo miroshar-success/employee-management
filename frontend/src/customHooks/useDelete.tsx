@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const usePost = (url: string, body: any) => {
+const useDelete = (url: string) => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +14,7 @@ const usePost = (url: string, body: any) => {
       };
       setIsLoading(true);
       try {
-        const res = await axios.post(url, body, {
+        const res = await axios.delete(url, {
           headers: headers,
         });
         const json = await res.data;
@@ -26,9 +26,9 @@ const usePost = (url: string, body: any) => {
       setIsLoading(false);
     };
     fetchData();
-  }, [url, body]);
+  }, [url]);
 
   return { response, error, isLoading };
 };
 
-export default usePost;
+export default useDelete;
