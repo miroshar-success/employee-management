@@ -94,7 +94,7 @@ const MyProfile = () => {
               color="primary"
               variant="contained"
               sx={{ height: "3rem", p: 2, mt: 2, color: "white", mr: 2 }}
-              onClick={() => navigate("/addEmployee")}
+              onClick={() => navigate(`/editEmployee/${profileId}`)}
             >
               Edit
             </Button>
