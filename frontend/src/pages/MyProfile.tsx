@@ -53,6 +53,23 @@ const MyProfile = () => {
   };
 
   console.log({ profile });
+
+  const handleProfileDelete = async (id: string) => {
+    const removeData = await axios.delete(
+      `http://localhost:5000/api/v1/employee/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (removeData.data.message) {
+      alert(removeData.data.message);
+      navigate("/profiles");
+    }
+  };
+
   return (
     <div>
       <Box
@@ -62,17 +79,45 @@ const MyProfile = () => {
           justifyContent: "space-around",
         }}
       >
-        <Typography variant="h3" sx={{ textAlign: "center", padding: 2 }}>
-          My Profile
-        </Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
-          onClick={() => navigate("/changePassword")}
-        >
-          Change Password
-        </Button>
+        {profileId ? (
+          <Typography variant="h3" sx={{ textAlign: "center", padding: 2 }}>
+            Profile Details
+          </Typography>
+        ) : (
+          <Typography variant="h3" sx={{ textAlign: "center", padding: 2 }}>
+            My Profile
+          </Typography>
+        )}
+        {profileId ? (
+          <div>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ height: "3rem", p: 2, mt: 2, color: "white", mr: 2 }}
+              onClick={() => navigate("/addEmployee")}
+            >
+              Edit
+            </Button>
+
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+              onClick={() => handleProfileDelete(profileId)}
+            >
+              Delete
+            </Button>
+          </div>
+        ) : (
+          <Button
+            color="primary"
+            variant="contained"
+            sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+            onClick={() => navigate("/changePassword")}
+          >
+            Change Password
+          </Button>
+        )}
       </Box>
       <div>
         <Box>

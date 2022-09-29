@@ -22,14 +22,18 @@ const Profiles = ({
   }, []);
 
   const fecthProfiles = async () => {
-    const response = await axios("http://localhost:5000/api/v1/employee", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    try {
+      const response = await axios("http://localhost:5000/api/v1/employee", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
-    console.log("response", response.data);
-    setAllProfiles(response.data);
+      console.log("response", response.data);
+      setAllProfiles(response.data);
+    } catch (error: any) {
+      alert(error.response.data);
+    }
   };
 
   console.log("fecthProfilesData", allProfiles);
