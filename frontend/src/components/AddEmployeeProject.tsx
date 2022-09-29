@@ -1,34 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
+import axios from "axios";
 
-const AddEmployeeProject = ({ handleChange, values, continues, back }: any) => {
-  const projects = [
-    {
-      id: 1,
-      name: "Project 1",
-      pm: "PM 1",
-      start: "2021-10-10",
-      end: "2021-10-10",
-    },
-    {
-      id: 2,
-      name: "Project 2",
-      pm: "PM 2",
-      start: "2022-10-10",
-      end: "2022-10-10",
-    },
-    {
-      id: 3,
-      name: "Project 3",
-      pm: "PM 3",
-      start: "2023-10-10",
-      end: "2023-10-10",
-    },
-  ];
+const AddEmployeeProject = ({
+  handleChange,
+  values,
+  continues,
+  back,
+  projectList,
+}: any) => {
+  // const projects = [
+  //   {
+  //     id: 1,
+  //     name: "Project 1",
+  //     pm: "PM 1",
+  //     start: "2021-10-10",
+  //     end: "2021-10-10",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Project 2",
+  //     pm: "PM 2",
+  //     start: "2022-10-10",
+  //     end: "2022-10-10",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Project 3",
+  //     pm: "PM 3",
+  //     start: "2023-10-10",
+  //     end: "2023-10-10",
+  //   },
+  // ];
 
   const Responsiblitites = ["Frontend", "Backend", "Fullstack", "DevOps"];
 
@@ -69,32 +76,30 @@ const AddEmployeeProject = ({ handleChange, values, continues, back }: any) => {
             label="Project Name"
             onChange={handleChange("projectName")}
           >
-            {projects.map((project) => {
+            {projectList.map((project: any) => {
               return <MenuItem value={project.name}>{project.name}</MenuItem>;
             })}
           </Select>
-          <InputLabel id="employeeResponsiblity">
-            Employee Responsiblity
-          </InputLabel>
+          <InputLabel id="responsiblity">Employee Responsiblity</InputLabel>
           <Select
-            labelId="employeeResponsiblity"
-            id="employeeResponsiblity"
-            value={values.employeeResponsiblity}
-            label="Employee Responsiblity"
-            onChange={handleChange("employeeResponsiblity")}
+            labelId="responsiblity"
+            id="responsiblity"
+            value={values.responsiblity}
+            label="responsiblity"
+            onChange={handleChange("responsiblity")}
           >
             {Responsiblitites.map((role) => {
               return <MenuItem value={role}>{role}</MenuItem>;
             })}
           </Select>
 
-          <InputLabel id="projectStatus">Project Status</InputLabel>
+          <InputLabel id="status">Project Status</InputLabel>
           <Select
-            labelId="projectStatus"
-            id="projectStatus"
-            value={values.projectStatus}
-            label="Project Status"
-            onChange={handleChange("projectStatus")}
+            labelId="status"
+            id="status"
+            value={values.status}
+            label="status"
+            onChange={handleChange("status")}
           >
             {projectStatus.map((status) => {
               return <MenuItem value={status}>{status}</MenuItem>;

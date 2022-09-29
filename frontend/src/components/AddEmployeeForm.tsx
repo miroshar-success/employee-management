@@ -1,28 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NotFound from "../pages/NotFound";
 import AddEmployeeInfo from "./AddEmployeeInfo";
 import AddEmployeeProfessional from "./AddEmployeeProfessional";
 import AddEmployeeProject from "./AddEmployeeProject";
 import SuccessInfo from "./SuccessInfo";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 type employeeInfoType = {
   step: number;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
   role: string;
   phone: string;
   address: string;
   salary: string;
-  department: string;
+  // department: string;
   joiningDate: string | Date | null;
   projectName: string;
-  projectResponsiblity: string;
-  projectStatus: string;
+  responsiblity: string;
+  status: string;
   bonus: string;
   totalLeave: string;
-  admin: string;
+  // admin: string;
   image?: string;
 };
 
@@ -30,26 +31,27 @@ const AddEmployeeForm = () => {
   const [joiningDateInfo, setJoiningDateInfo] = React.useState<Date | null>(
     new Date()
   );
+  const [projectList, setProjectList] = React.useState([]);
 
+  const navigate = useNavigate();
   const [employeeDetails, setEmployeeDeatils] =
     React.useState<employeeInfoType>({
       step: 1,
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       password: "",
       role: "",
       phone: "",
       address: "",
       salary: "",
-      department: "",
+      // department: "",
       joiningDate: "",
       projectName: "",
-      projectResponsiblity: "",
-      projectStatus: "",
+      responsiblity: "",
+      status: "",
       bonus: "",
       totalLeave: "",
-      admin: "",
+      // admin: "",
       image: "",
     });
 
@@ -57,6 +59,7 @@ const AddEmployeeForm = () => {
 
   const continues = (e: any) => {
     e.preventDefault();
+    console.log("step", step);
     setEmployeeDeatils({ ...employeeDetails, step: employeeDetails.step + 1 });
   };
 
@@ -77,45 +80,79 @@ const AddEmployeeForm = () => {
 
   const { step } = employeeDetails;
   const {
-    firstName,
-    lastName,
+    name,
     email,
     password,
     role,
     phone,
     address,
     salary,
-    department,
+    // department,
     joiningDate,
     projectName,
-    projectResponsiblity,
-    projectStatus,
+    responsiblity,
+    status,
     bonus,
     totalLeave,
-    admin,
+    // admin,
     image,
   } = employeeDetails;
 
   const values = [
-    firstName,
-    lastName,
+    name,
     email,
     password,
     role,
     phone,
     address,
     salary,
-    department,
+    // department,
     joiningDate,
     projectName,
-    projectResponsiblity,
-    projectStatus,
+    responsiblity,
+    status,
     bonus,
     totalLeave,
-    admin,
+    // admin,
     image,
   ];
 
+  const postEmployeeData = async () => {
+    try {
+      const postData = await axios.post(
+        "http://localhost:5000/api/v1/addemployee",
+        employeeDetails,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("postData", postData.data);
+      navigate("/profiles");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (employeeDetails.bonus && employeeDetails.totalLeave) {
+      console.log(">>", employeeDetails.totalLeave);
+      postEmployeeData();
+    }
+  }, [employeeDetails]);
+
+  useEffect(() => {
+    try {
+      axios.get("http://localhost:5000/api/v1/projects").then((res) => {
+        console.log("res", res.data);
+        setProjectList(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   // render(){
   //    var  formSteps =()=>{
   //         switch(step){
@@ -153,6 +190,7 @@ const AddEmployeeForm = () => {
             values={values}
             continues={continues}
             back={back}
+            projectList={projectList}
           />
         );
       case 3:

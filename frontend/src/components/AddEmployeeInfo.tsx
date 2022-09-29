@@ -42,21 +42,14 @@ const AddEmployeeInfo = ({
             Add Employee's Personal Information
           </h2>
           <TextField
-            id="firstName"
-            name="firstName"
-            label="First Name"
-            value={values.firstName}
-            onChange={handleChange("firstName")}
+            id="name"
+            name="name"
+            label="Name"
+            value={values.name}
+            onChange={handleChange("name")}
             margin="normal"
           />
-          <TextField
-            id="lastName"
-            name="lastName"
-            label="Last Name"
-            value={values.lastName}
-            onChange={handleChange("lastName")}
-            margin="normal"
-          />
+
           <TextField
             id="email"
             name="email"

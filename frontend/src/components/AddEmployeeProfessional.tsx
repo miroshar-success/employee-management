@@ -49,9 +49,9 @@ const AddEmployeeProfessional = ({
           <TextField
             id="bonus"
             name="bonus"
-            label="Bounus"
+            label="Bonus"
             value={values.bonus}
-            onChange={handleChange("bouns")}
+            onChange={handleChange("bonus")}
             margin="normal"
           />
 
