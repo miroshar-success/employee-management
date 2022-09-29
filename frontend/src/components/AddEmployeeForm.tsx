@@ -6,6 +6,7 @@ import AddEmployeeProject from "./AddEmployeeProject";
 import SuccessInfo from "./SuccessInfo";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 type employeeInfoType = {
   step: number;
@@ -28,6 +29,9 @@ type employeeInfoType = {
 };
 
 const AddEmployeeForm = () => {
+  const params = useParams();
+  const profileId = params.id;
+
   const [joiningDateInfo, setJoiningDateInfo] = React.useState<Date | null>(
     new Date()
   );
@@ -152,7 +156,28 @@ const AddEmployeeForm = () => {
     } catch (error) {
       console.log(error);
     }
+    profileId ? getProfile() : console.log("no profile id");
   }, []);
+
+  const getProfile = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/employee/${profileId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("res", res.data);
+      const data = res.data;
+      data.step = 1;
+      setEmployeeDeatils(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // render(){
   //    var  formSteps =()=>{
   //         switch(step){
@@ -181,6 +206,7 @@ const AddEmployeeForm = () => {
             continues={continues}
             joiningDateInfo={joiningDateInfo}
             setJoiningDateInfo={setJoiningDateInfo}
+            employeeDetails={profileId ? employeeDetails : null}
           />
         );
       case 2:

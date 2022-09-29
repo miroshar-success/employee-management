@@ -13,7 +13,20 @@ const AddEmployeeInfo = ({
   continues,
   joiningDateInfo,
   setJoiningDateInfo,
+  employeeDetails = null,
 }: any) => {
+  console.log("employeeDetails2", employeeDetails);
+
+  if (employeeDetails) {
+    values.name = employeeDetails.name;
+    values.email = employeeDetails.email;
+    values.phone = employeeDetails.phone;
+    values.password = employeeDetails.password;
+    values.role = employeeDetails.role;
+    values.address = employeeDetails.address;
+    values.salary = employeeDetails.salary;
+    values.joiningDate = employeeDetails.joiningDate;
+  }
   return (
     <div
       style={{
