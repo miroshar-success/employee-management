@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NotFound from "../pages/NotFound";
 import AddEmployeeInfo from "./AddEmployeeInfo";
 import AddEmployeeProfessional from "./AddEmployeeProfessional";
 import AddEmployeeProject from "./AddEmployeeProject";
 import SuccessInfo from "./SuccessInfo";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 type employeeInfoType = {
   step: number;
