@@ -11,35 +11,16 @@ const AddEmployeeProject = ({
   continues,
   back,
   projectList,
+  employeeDetails = null,
 }: any) => {
-  // const projects = [
-  //   {
-  //     id: 1,
-  //     name: "Project 1",
-  //     pm: "PM 1",
-  //     start: "2021-10-10",
-  //     end: "2021-10-10",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Project 2",
-  //     pm: "PM 2",
-  //     start: "2022-10-10",
-  //     end: "2022-10-10",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Project 3",
-  //     pm: "PM 3",
-  //     start: "2023-10-10",
-  //     end: "2023-10-10",
-  //   },
-  // ];
-
   const Responsiblitites = ["Frontend", "Backend", "Fullstack", "DevOps"];
 
   const projectStatus = ["Active", "Inactive"];
 
+  if (employeeDetails) {
+    values.projectName = employeeDetails.currentProjects.projectName;
+  }
+  console.log("employeeDetails3", employeeDetails);
   return (
     <div
       style={{
@@ -67,10 +48,10 @@ const AddEmployeeProject = ({
           <h2 style={{ textAlign: "center" }}>
             Add Employee's Current Project
           </h2>
-          <InputLabel id="projects">projects</InputLabel>
+          <InputLabel id="projectName">projects</InputLabel>
           <Select
-            labelId="projects"
-            id="projects"
+            labelId="projectName"
+            id="projectName"
             value={values.projectName}
             label="Project Name"
             onChange={handleChange("projectName")}
@@ -79,6 +60,7 @@ const AddEmployeeProject = ({
               return <MenuItem value={project.name}>{project.name}</MenuItem>;
             })}
           </Select>
+          {employeeDetails ? <p>{values.projectName}</p> : null}
           <InputLabel id="responsiblity">Employee Responsiblity</InputLabel>
           <Select
             labelId="responsiblity"
@@ -91,7 +73,9 @@ const AddEmployeeProject = ({
               return <MenuItem value={role}>{role}</MenuItem>;
             })}
           </Select>
-
+          {employeeDetails ? (
+            <p>{employeeDetails.currentProjects.responsiblity}</p>
+          ) : null}
           <InputLabel id="status">Project Status</InputLabel>
           <Select
             labelId="status"
@@ -104,6 +88,9 @@ const AddEmployeeProject = ({
               return <MenuItem value={status}>{status}</MenuItem>;
             })}
           </Select>
+          {employeeDetails ? (
+            <p>{employeeDetails.currentProjects.status}</p>
+          ) : null}
           <br />
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>

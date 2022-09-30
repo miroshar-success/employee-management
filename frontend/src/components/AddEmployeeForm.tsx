@@ -38,26 +38,27 @@ const AddEmployeeForm = () => {
   const [projectList, setProjectList] = React.useState([]);
 
   const navigate = useNavigate();
-  const [employeeDetails, setEmployeeDeatils] =
-    React.useState<employeeInfoType>({
-      step: 1,
-      name: "",
-      email: "",
-      password: "",
-      role: "",
-      phone: "",
-      address: "",
-      salary: "",
-      // department: "",
-      joiningDate: "",
-      projectName: "",
-      responsiblity: "",
-      status: "",
-      bonus: "",
-      totalLeave: "",
-      // admin: "",
-      image: "",
-    });
+  const [employeeDetails, setEmployeeDeatils] = React.useState<
+    employeeInfoType | any
+  >({
+    step: 1,
+    name: "",
+    email: "",
+    password: "",
+    role: "",
+    phone: "",
+    address: "",
+    salary: "",
+    // department: "",
+    joiningDate: "",
+    projectName: "",
+    responsiblity: "",
+    status: "",
+    bonus: "",
+    totalLeave: "",
+    // admin: "",
+    image: "",
+  });
 
   console.log({ employeeDetails });
 
@@ -143,8 +144,11 @@ const AddEmployeeForm = () => {
   useEffect(() => {
     if (employeeDetails.bonus && employeeDetails.totalLeave) {
       console.log(">>", employeeDetails.totalLeave);
-      postEmployeeData();
+      profileId ? console.log("post error") : postEmployeeData();
     }
+    employeeDetails.step === 4 && profileId
+      ? updateEmployeeData()
+      : console.log("update error");
   }, [employeeDetails]);
 
   useEffect(() => {
@@ -158,6 +162,10 @@ const AddEmployeeForm = () => {
     }
     profileId ? getProfile() : console.log("no profile id");
   }, []);
+
+  // useEffect(() => {
+  //   profileId ? updateEmployeeData() : console.log("no profile id");
+  // });
 
   const getProfile = async () => {
     try {
@@ -174,6 +182,44 @@ const AddEmployeeForm = () => {
       const data = res.data;
       data.step = 1;
       setEmployeeDeatils(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateEmployeeData = async () => {
+    try {
+      const postData = await axios.put(
+        `http://localhost:5000/api/v1/employee/${profileId}`,
+        {
+          name: employeeDetails.name,
+          email: employeeDetails.email,
+          password: employeeDetails.password,
+          role: employeeDetails.role,
+          phone: employeeDetails.phone,
+          address: employeeDetails.address,
+          salary: employeeDetails.salary,
+          // department: employeeDetails.department,
+          joiningDate: employeeDetails.joiningDate,
+          currentProjects: {
+            projectName: employeeDetails.currentProjects.projectName,
+            responsiblity: employeeDetails.responsiblity,
+            status: employeeDetails.status,
+          },
+          professionalInfo: {
+            bonus: employeeDetails.bonus,
+            totalLeave: employeeDetails.totalLeave,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("updateData", postData.data);
+      navigate("/profiles");
     } catch (error) {
       console.log(error);
     }
@@ -217,6 +263,7 @@ const AddEmployeeForm = () => {
             continues={continues}
             back={back}
             projectList={projectList}
+            employeeDetails={profileId ? employeeDetails : null}
           />
         );
       case 3:
@@ -226,6 +273,7 @@ const AddEmployeeForm = () => {
             values={values}
             continues={continues}
             back={back}
+            employeeDetails={profileId ? employeeDetails : null}
           />
         );
       case 4:

@@ -23,7 +23,7 @@ const ResponsiveAppBar = () => {
     pages = [
       ["Home", "/home"],
       ["My Profile", "/myprofile"],
-      ["My Projects", "/myprojects"],
+      // ["My Projects", "/myprojects"],
       ["Projects", "/projects"],
       ["Profiles", "/profiles"],
     ];
@@ -31,7 +31,7 @@ const ResponsiveAppBar = () => {
     pages = [
       ["Home", "/home"],
       ["My Profile", "/myprofile"],
-      ["My Projects", "/myprojects"],
+      // ["My Projects", "/myprojects"],
     ];
   }
 

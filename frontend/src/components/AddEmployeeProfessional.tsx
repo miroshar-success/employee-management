@@ -15,10 +15,12 @@ const AddEmployeeProfessional = ({
   values,
   continues,
   back,
+  employeeDetails = null,
 }: any) => {
   // const [ProjectDurationValue, setProjectDurationValue] = React.useState<
   //   DateRange<Dayjs>
   // >([null, null]);
+
   return (
     <div
       style={{
@@ -54,7 +56,7 @@ const AddEmployeeProfessional = ({
             onChange={handleChange("bonus")}
             margin="normal"
           />
-
+          {employeeDetails && <p>{employeeDetails.professionalInfo.bonus}</p>}
           <TextField
             id="totalLeave"
             name="totalLeave"
@@ -63,7 +65,9 @@ const AddEmployeeProfessional = ({
             onChange={handleChange("totalLeave")}
             margin="normal"
           />
-
+          {employeeDetails && (
+            <p>{employeeDetails.professionalInfo.totalLeave}</p>
+          )}
           <br />
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>

@@ -122,7 +122,7 @@ const AddEmployeeInfo = ({
             onChange={handleChange("department")}
             margin="normal"
           /> */}
-          <InputLabel id="department">Department</InputLabel>
+          {/* <InputLabel id="department">Department</InputLabel>
           <Select
             labelId="department"
             id="department"
@@ -141,7 +141,7 @@ const AddEmployeeInfo = ({
             id="contained-button-file"
             type="file"
             style={{ padding: 10 }}
-          />
+          /> */}
 
           <br />
           <DatePick
