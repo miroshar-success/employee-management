@@ -18,7 +18,7 @@ const AddEmployeeProject = ({
   const projectStatus = ["Active", "Inactive"];
 
   if (employeeDetails) {
-    values.projectName = employeeDetails.currentProjects.projectName;
+    values.projectName = employeeDetails.projectName;
   }
   console.log("employeeDetails3", employeeDetails);
   return (
@@ -73,9 +73,7 @@ const AddEmployeeProject = ({
               return <MenuItem value={role}>{role}</MenuItem>;
             })}
           </Select>
-          {employeeDetails ? (
-            <p>{employeeDetails.currentProjects.responsiblity}</p>
-          ) : null}
+          {employeeDetails ? <p>{employeeDetails.responsiblity}</p> : null}
           <InputLabel id="status">Project Status</InputLabel>
           <Select
             labelId="status"
@@ -88,9 +86,7 @@ const AddEmployeeProject = ({
               return <MenuItem value={status}>{status}</MenuItem>;
             })}
           </Select>
-          {employeeDetails ? (
-            <p>{employeeDetails.currentProjects.status}</p>
-          ) : null}
+          {employeeDetails ? <p>{employeeDetails.status}</p> : null}
           <br />
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
