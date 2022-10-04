@@ -24,7 +24,7 @@ const SearchBar = ({ setSearchQuery }: any, { searchQuery }: any) => {
           }}
         />
 
-        <IconButton type="submit" aria-label="search">
+        {/* <IconButton type="submit" aria-label="search">
           <Box
             style={{ fill: "blue" }}
             sx={{
@@ -38,7 +38,7 @@ const SearchBar = ({ setSearchQuery }: any, { searchQuery }: any) => {
           >
             <p style={{ color: "white" }}> Search</p>
           </Box>
-        </IconButton>
+        </IconButton> */}
       </form>
     </div>
   );

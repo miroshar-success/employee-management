@@ -12,7 +12,7 @@ const Homepage = () => {
     }
     const employeeHome: any = JSON.parse(localStorage.getItem("user") || "{}");
     setUserName(employeeHome.name);
-  });
+  }, []);
   return (
     <div>
       <Box
