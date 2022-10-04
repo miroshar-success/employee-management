@@ -109,14 +109,24 @@ const MyProfile = () => {
             </Button>
           </div>
         ) : (
-          <Button
-            color="primary"
-            variant="contained"
-            sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
-            onClick={() => navigate("/changePassword")}
-          >
-            Change Password
-          </Button>
+          <>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+              onClick={() => navigate("/changePassword")}
+            >
+              Change Password
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+              onClick={() => navigate("/payslip")}
+            >
+              Download Pay Slip
+            </Button>
+          </>
         )}
       </Box>
       <div>

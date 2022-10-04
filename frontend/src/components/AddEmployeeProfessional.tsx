@@ -56,7 +56,7 @@ const AddEmployeeProfessional = ({
             onChange={handleChange("bonus")}
             margin="normal"
           />
-          {employeeDetails && <p>{employeeDetails.professionalInfo.bonus}</p>}
+          {employeeDetails && <p>{employeeDetails.bonus}</p>}
           <TextField
             id="totalLeave"
             name="totalLeave"
@@ -65,9 +65,7 @@ const AddEmployeeProfessional = ({
             onChange={handleChange("totalLeave")}
             margin="normal"
           />
-          {employeeDetails && (
-            <p>{employeeDetails.professionalInfo.totalLeave}</p>
-          )}
+          {employeeDetails && <p>{employeeDetails.totalLeave}</p>}
           <br />
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>

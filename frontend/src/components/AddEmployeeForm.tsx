@@ -181,7 +181,26 @@ const AddEmployeeForm = () => {
       console.log("res", res.data);
       const data = res.data;
       data.step = 1;
-      setEmployeeDeatils(data);
+      const updateData = {
+        step: data.step,
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        role: data.role,
+        phone: data.phone,
+        address: data.address,
+        salary: data.salary,
+        // department: "",
+        joiningDate: data.joiningDate,
+        projectName: data.currentProjects.projectName,
+        responsiblity: data.currentProjects.responsiblity,
+        status: data.currentProjects.status,
+        bonus: data.professionalInfo.bonus,
+        totalLeave: data.professionalInfo.bonus,
+        // admin: "",
+        image: "",
+      };
+      setEmployeeDeatils(updateData);
     } catch (error) {
       console.log(error);
     }
@@ -202,7 +221,7 @@ const AddEmployeeForm = () => {
           // department: employeeDetails.department,
           joiningDate: employeeDetails.joiningDate,
           currentProjects: {
-            projectName: employeeDetails.currentProjects.projectName,
+            projectName: employeeDetails.projectName,
             responsiblity: employeeDetails.responsiblity,
             status: employeeDetails.status,
           },

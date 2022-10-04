@@ -12,6 +12,7 @@ import AddEmployee from "./pages/AddEmployee";
 import NotFound from "./pages/NotFound";
 import ChangePassword from "./pages/ChangePassword";
 import AddEmployeeForm from "./components/AddEmployeeForm";
+import Payslip from "./pages/Payslip";
 
 function App() {
   const [isprofiles, setIsProfiles] = React.useState<any>(true);
@@ -41,6 +42,7 @@ function App() {
         <Route path="/addEmployee" element={<AddEmployee />} />
         <Route path="/addEmployee/:id" element={<AddEmployeeForm />} />
         <Route path="/changePassword" element={<ChangePassword />} />
+        <Route path="/payslip" element={<Payslip />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
