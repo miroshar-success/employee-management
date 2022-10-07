@@ -11,6 +11,14 @@ import { isLogin, isAdmin } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  name: yup.string().required("Name is required"),
+  client: yup.string().required("Client is required"),
+  pm: yup.string().required("Project Manager is required"),
+  status: yup.string().required("Status is required"),
+});
 
 const AddProject = () => {
   let params = useParams();
@@ -29,6 +37,7 @@ const AddProject = () => {
       status: "",
       duration: {},
     },
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       values.duration = ProjectDurationValue;
       // alert(JSON.stringify(values, null, 2));
