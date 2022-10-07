@@ -196,7 +196,7 @@ const AddEmployeeForm = () => {
         responsiblity: data.currentProjects.responsiblity,
         status: data.currentProjects.status,
         bonus: data.professionalInfo.bonus,
-        totalLeave: data.professionalInfo.bonus,
+        totalLeave: data.professionalInfo.totalLeave,
         // admin: "",
         image: "",
       };

@@ -16,7 +16,7 @@ const SearchBar = ({ setSearchQuery }: any, { searchQuery }: any) => {
       <form>
         <TextField
           id="outlined-basic"
-          label="Search By Email"
+          label="Search"
           variant="outlined"
           size="medium"
           onInput={(e: React.FormEvent<HTMLInputElement>) => {
