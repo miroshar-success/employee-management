@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import DatePick from "./DatePick";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 const AddEmployeeInfo = ({
   handleChange,
@@ -13,9 +14,11 @@ const AddEmployeeInfo = ({
   continues,
   joiningDateInfo,
   setJoiningDateInfo,
+  setEmployeeImg,
   employeeDetails = null,
 }: any) => {
   console.log("employeeDetails2", employeeDetails);
+  const [uploadingImg, setUploadingImg] = React.useState(false);
 
   if (employeeDetails) {
     values.name = employeeDetails.name;
@@ -27,6 +30,33 @@ const AddEmployeeInfo = ({
     values.salary = employeeDetails.salary;
     values.joiningDate = employeeDetails.joiningDate;
   }
+
+  const uploadImgHandler = async (e: any) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploadingImg(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/api/v1/uploads",
+        formData,
+        config
+      );
+      console.log("data", data);
+      setEmployeeImg(data);
+      setUploadingImg(false);
+    } catch (error) {
+      console.error(error);
+      setUploadingImg(false);
+    }
+  };
   return (
     <div
       style={{
@@ -134,6 +164,7 @@ const AddEmployeeInfo = ({
             <MenuItem value="engineer">Engineer</MenuItem>
             <MenuItem value="admin">Admin</MenuItem>
           </Select>
+          */}
           <br />
           <input
             accept="image/*"
@@ -141,7 +172,8 @@ const AddEmployeeInfo = ({
             id="contained-button-file"
             type="file"
             style={{ padding: 10 }}
-          /> */}
+            onChange={uploadImgHandler}
+          />
 
           <br />
           <DatePick

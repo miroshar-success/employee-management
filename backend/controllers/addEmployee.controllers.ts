@@ -11,6 +11,7 @@ const addEmployeeInfo = async (req: Request, res: Response): Promise<void> => {
     phone,
     address,
     salary,
+    image,
     joingDate,
     projectName,
     responsiblity,
@@ -38,6 +39,7 @@ const addEmployeeInfo = async (req: Request, res: Response): Promise<void> => {
     phone,
     address,
     salary,
+    image,
     joingDate,
     currentProjects: {
       projectName,

@@ -52,7 +52,7 @@ const MyProfile = () => {
     }
   };
 
-  console.log({ profile });
+  console.log(profile.image);
 
   const handleProfileDelete = async (id: string) => {
     const removeData = await axios.delete(
@@ -166,6 +166,12 @@ const MyProfile = () => {
                   <p>Address: {profile?.address}</p>
                   <p>Salary: {profile?.salary}</p>
                   <p>Joinning Date: {profile?.joingDate}</p>
+                  <p>image</p>
+                  <img
+                    src={`http://localhost:5000/api/v1/uploads${profile?.image}`}
+                    alt=""
+                    style={{ height: "10rem", width: "10rem" }}
+                  />
                 </div>
               </Box>
             </Card>

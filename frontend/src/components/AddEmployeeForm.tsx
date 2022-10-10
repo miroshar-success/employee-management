@@ -37,6 +37,7 @@ const AddEmployeeForm = () => {
     new Date()
   );
   const [projectList, setProjectList] = React.useState([]);
+  const [employeeImg, setEmployeeImg] = React.useState("");
 
   const navigate = useNavigate();
   const [employeeDetails, setEmployeeDeatils] = React.useState<
@@ -61,6 +62,9 @@ const AddEmployeeForm = () => {
     image: "",
   });
 
+  if (employeeImg) {
+    employeeDetails.image = employeeImg;
+  }
   console.log({ employeeDetails });
 
   const continues = (e: any) => {
@@ -273,6 +277,8 @@ const AddEmployeeForm = () => {
             joiningDateInfo={joiningDateInfo}
             setJoiningDateInfo={setJoiningDateInfo}
             employeeDetails={profileId ? employeeDetails : null}
+            //employeeImg={employeeImg}
+            setEmployeeImg={setEmployeeImg}
           />
         );
       case 2:
