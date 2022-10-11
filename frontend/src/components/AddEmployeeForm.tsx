@@ -311,7 +311,7 @@ const AddEmployeeForm = () => {
 
   return (
     <div>
-      <input
+      {/* <input
         type="file"
         accept=".csv,.xlsx,.xls"
         onChange={(e) => {
@@ -326,7 +326,7 @@ const AddEmployeeForm = () => {
             });
           }
         }}
-      />
+      /> */}
       {renderContent()}
     </div>
   );
