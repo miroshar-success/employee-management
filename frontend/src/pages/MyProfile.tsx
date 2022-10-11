@@ -168,7 +168,7 @@ const MyProfile = () => {
                   <p>Joinning Date: {profile?.joingDate}</p>
                   <p>image</p>
                   <img
-                    src={`http://localhost:5000/api/v1/uploads${profile?.image}`}
+                    src={`http://localhost:5000/api/v1${profile?.image}`}
                     alt=""
                     style={{ height: "10rem", width: "10rem" }}
                   />
