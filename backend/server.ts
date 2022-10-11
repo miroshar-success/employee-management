@@ -10,10 +10,12 @@ import projects from "./routes/projects.route";
 import profile from "./routes/profile.route";
 import { notFound } from "./middlewires/error";
 import imageUpload from "./routes/imageUpload.route";
+import path from "path";
 // import employee from "./routes/test/employee.route";
 
 dotenv.config();
 connectDB();
+const dirname = path.resolve();
 
 const app: Application = express();
 
@@ -35,6 +37,7 @@ app.use("/api/v1/projects", projects);
 app.use("/api/v1/profile", profile);
 app.use("/api/v1/uploads", imageUpload);
 
+app.use("/uploads", express.static(path.join(dirname, "/uploads")));
 //test optimization
 //app.use("/api/v1/createEmployee", employee);
 

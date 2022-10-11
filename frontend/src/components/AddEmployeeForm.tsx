@@ -7,6 +7,7 @@ import AddEmployeeInfo from "./AddEmployeeInfo";
 import AddEmployeeProfessional from "./AddEmployeeProfessional";
 import AddEmployeeProject from "./AddEmployeeProject";
 import SuccessInfo from "./SuccessInfo";
+import Papa from "papaparse";
 
 type employeeInfoType = {
   step: number;
@@ -36,6 +37,7 @@ const AddEmployeeForm = () => {
     new Date()
   );
   const [projectList, setProjectList] = React.useState([]);
+  const [employeeImg, setEmployeeImg] = React.useState("");
 
   const navigate = useNavigate();
   const [employeeDetails, setEmployeeDeatils] = React.useState<
@@ -60,6 +62,9 @@ const AddEmployeeForm = () => {
     image: "",
   });
 
+  if (employeeImg) {
+    employeeDetails.image = employeeImg;
+  }
   console.log({ employeeDetails });
 
   const continues = (e: any) => {
@@ -272,6 +277,8 @@ const AddEmployeeForm = () => {
             joiningDateInfo={joiningDateInfo}
             setJoiningDateInfo={setJoiningDateInfo}
             employeeDetails={profileId ? employeeDetails : null}
+            //employeeImg={employeeImg}
+            setEmployeeImg={setEmployeeImg}
           />
         );
       case 2:
@@ -302,7 +309,27 @@ const AddEmployeeForm = () => {
     }
   };
 
-  return <div>{renderContent()}</div>;
+  return (
+    <div>
+      {/* <input
+        type="file"
+        accept=".csv,.xlsx,.xls"
+        onChange={(e) => {
+          const files = e.target.files;
+          console.log(files);
+          if (files) {
+            console.log(files[0]);
+            Papa.parse(files[0], {
+              complete: function (results) {
+                console.log("Finished:", results.data);
+              },
+            });
+          }
+        }}
+      /> */}
+      {renderContent()}
+    </div>
+  );
 };
 
 export default AddEmployeeForm;
