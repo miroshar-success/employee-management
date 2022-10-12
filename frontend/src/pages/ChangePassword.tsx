@@ -3,25 +3,34 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [newPassword, setNewPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await axios.put(
-      "http://localhost:5000/api/v1/profile/changePassword",
-      { password: newPassword },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    const data = await res.data;
-    console.log("data", data);
-    alert(data.message);
+    if (newPassword === confirmPassword) {
+      const res = await axios.put(
+        "http://localhost:5000/api/v1/profile/changePassword",
+        { password: newPassword },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = await res.data;
+      console.log("data", data);
+      alert(data.message);
+      navigate("/myprofile");
+    } else {
+      alert("Password does not match");
+    }
   };
 
   return (
@@ -52,6 +61,15 @@ const ChangePassword = () => {
             label="New Password"
             type="password"
             onChange={(e) => setNewPassword(e.target.value)}
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="Confirm Password"
+            type="password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
             sx={{ marginBottom: 2 }}
           />
           <Button color="primary" variant="contained" fullWidth type="submit">
