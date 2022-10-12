@@ -65,8 +65,8 @@ const ChangePassword = () => {
           />
           <TextField
             fullWidth
-            id="password"
-            name="password"
+            id="confirm-password"
+            name="confirm-password"
             label="Confirm Password"
             type="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
