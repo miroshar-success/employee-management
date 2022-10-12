@@ -14,10 +14,17 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { MyHeader, LinkText } from "./style/Navbar";
-import { isLogin } from "../utils/auth";
+import { isLogin, isAdmin } from "../utils/auth";
+import { useLocation } from "react-router-dom";
 
 const ResponsiveAppBar = () => {
-  const [isadmin, setIsAdmin] = React.useState(true);
+  const [isadmin, setIsAdmin] = React.useState(false);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const admin = isAdmin();
+    setIsAdmin(admin);
+  }, [location]);
 
   let pages;
   if (isadmin) {
@@ -32,6 +39,7 @@ const ResponsiveAppBar = () => {
     pages = [
       ["Home", "/home"],
       ["My Profile", "/myprofile"],
+      ["Projects", "/projects"],
       // ["My Projects", "/myprojects"],
     ];
   }
@@ -65,7 +73,7 @@ const ResponsiveAppBar = () => {
     localStorage.removeItem("user");
     window.location.href = "/";
   };
-
+  if (["/"].includes(location.pathname)) return null;
   return (
     <AppBar position="static">
       <MyHeader>
