@@ -7,7 +7,6 @@ import AddEmployeeInfo from "./AddEmployeeInfo";
 import AddEmployeeProfessional from "./AddEmployeeProfessional";
 import AddEmployeeProject from "./AddEmployeeProject";
 import SuccessInfo from "./SuccessInfo";
-import Papa from "papaparse";
 
 type employeeInfoType = {
   step: number;
@@ -224,6 +223,7 @@ const AddEmployeeForm = () => {
           address: employeeDetails.address,
           salary: employeeDetails.salary,
           // department: employeeDetails.department,
+          image: employeeDetails.image,
           joiningDate: employeeDetails.joiningDate,
           currentProjects: {
             projectName: employeeDetails.projectName,
