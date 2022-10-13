@@ -230,11 +230,8 @@ const AddProject = () => {
             {pm.map((item: any) => {
               return <MenuItem value={item.name}>{item.name}</MenuItem>;
             })}
-
-            {/* <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="employee">Employee</MenuItem> */}
           </Select>
-          <TextField
+          {/* <TextField
             fullWidth
             id="status"
             name="status"
@@ -244,7 +241,21 @@ const AddProject = () => {
             error={formik.touched.status && Boolean(formik.errors.status)}
             helperText={formik.touched.status && formik.errors.status}
             sx={{ marginBottom: 2 }}
-          />
+          /> */}
+          <InputLabel id="status">Status</InputLabel>
+          <Select
+            labelId="status"
+            id="status"
+            name="status"
+            value={formik.values.status}
+            label="status"
+            onChange={formik.handleChange}
+            fullWidth
+            sx={{ marginBottom: 2 }}
+          >
+            <MenuItem value="active">Active</MenuItem>
+            <MenuItem value="inactive">Inactive</MenuItem>
+          </Select>
           {/* <DateRangePick
           ProjectDurationValue={ProjectDurationValue}
           setProjectDurationValue={setProjectDurationValue}
