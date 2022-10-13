@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import * as yup from "yup";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 const validationSchema = yup.object({
   name: yup.string().required("Name is required"),
@@ -27,6 +30,7 @@ const AddProject = () => {
   const [ProjectDurationValue, setProjectDurationValue] = React.useState<
     DateRange<Dayjs>
   >([null, null]);
+  const [pm, setPm] = React.useState<any>([]);
   const navigate = useNavigate();
   // console.log("po", ProjectDurationValue);
   const formik = useFormik({
@@ -72,6 +76,7 @@ const AddProject = () => {
       };
       getData();
     }
+    getPm();
   }, []);
 
   const postData = async () => {
@@ -118,6 +123,27 @@ const AddProject = () => {
     }
   };
 
+  const getPm = async () => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    try {
+      const res = await axios.get("http://localhost:5000/api/v1/employee", {
+        headers: headers,
+      });
+      const json = await res.data;
+      console.log("json", json);
+      const pm = json.filter(
+        (item: any) =>
+          item.designation === "pm" && item.employeeStatus === "active"
+      );
+      setPm(pm);
+    } catch (error: any) {
+      alert(error.response.data);
+    }
+  };
+  console.log("pm", pm);
   return (
     <div
       style={{
@@ -179,7 +205,7 @@ const AddProject = () => {
             helperText={formik.touched.client && formik.errors.client}
             sx={{ marginBottom: 2 }}
           />
-          <TextField
+          {/* <TextField
             fullWidth
             id="pm"
             name="pm"
@@ -189,8 +215,23 @@ const AddProject = () => {
             error={formik.touched.pm && Boolean(formik.errors.pm)}
             helperText={formik.touched.pm && formik.errors.pm}
             sx={{ marginBottom: 2 }}
-          />
-          <TextField
+          /> */}
+          <InputLabel id="pm">PM Name</InputLabel>
+          <Select
+            labelId="pm"
+            id="pm"
+            name="pm"
+            value={formik.values.pm}
+            label="pm"
+            onChange={formik.handleChange}
+            fullWidth
+            sx={{ marginBottom: 2 }}
+          >
+            {pm.map((item: any) => {
+              return <MenuItem value={item.name}>{item.name}</MenuItem>;
+            })}
+          </Select>
+          {/* <TextField
             fullWidth
             id="status"
             name="status"
@@ -200,7 +241,21 @@ const AddProject = () => {
             error={formik.touched.status && Boolean(formik.errors.status)}
             helperText={formik.touched.status && formik.errors.status}
             sx={{ marginBottom: 2 }}
-          />
+          /> */}
+          <InputLabel id="status">Status</InputLabel>
+          <Select
+            labelId="status"
+            id="status"
+            name="status"
+            value={formik.values.status}
+            label="status"
+            onChange={formik.handleChange}
+            fullWidth
+            sx={{ marginBottom: 2 }}
+          >
+            <MenuItem value="active">Active</MenuItem>
+            <MenuItem value="inactive">Inactive</MenuItem>
+          </Select>
           {/* <DateRangePick
           ProjectDurationValue={ProjectDurationValue}
           setProjectDurationValue={setProjectDurationValue}

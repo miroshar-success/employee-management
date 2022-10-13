@@ -114,9 +114,9 @@ const DataTable = ({
                   <TableCell>Name</TableCell>
                   <Hidden smDown>
                     <TableCell align="right">Client Name</TableCell>
-                    <TableCell align="right">Status</TableCell>
-                    <TableCell align="right">PM</TableCell>
-                    <TableCell align="right">Deadline</TableCell>
+                    <TableCell align="center">Status</TableCell>
+                    <TableCell align="center">PM</TableCell>
+                    <TableCell align="center">Deadline</TableCell>
                   </Hidden>
                 </>
               )}
@@ -174,9 +174,20 @@ const DataTable = ({
                     </TableCell>
                     <Hidden smDown>
                       <TableCell align="right">{row.client}</TableCell>
-                      <TableCell align="right">{row.status}</TableCell>
-                      <TableCell align="right">{row.pm}</TableCell>
-                      <TableCell align="right">
+                      <TableCell
+                        align="center"
+                        style={{
+                          backgroundColor:
+                            row.status === "inactive" ? "red" : "inherit",
+                          color:
+                            row.status === "inactive" ? "white" : "inherit",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        {row.status}
+                      </TableCell>
+                      <TableCell align="center">{row.pm}</TableCell>
+                      <TableCell align="center">
                         {row.duration[0]}-{row.duration[1]}
                       </TableCell>
                     </Hidden>
