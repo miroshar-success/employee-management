@@ -64,6 +64,14 @@ const employeeInfoSchema = new mongoose.Schema(
     image: {
       type: String,
     },
+    designation: {
+      type: String,
+      required: true,
+    },
+    employeeStatus: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
