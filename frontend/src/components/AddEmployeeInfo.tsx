@@ -28,7 +28,10 @@ const AddEmployeeInfo = ({
     values.role = employeeDetails.role;
     values.address = employeeDetails.address;
     values.salary = employeeDetails.salary;
+    values.employeeStatus = employeeDetails.employeeStatus;
+    values.designation = employeeDetails.designation;
     values.joiningDate = employeeDetails.joiningDate;
+    values.image = employeeDetails.image;
   }
 
   const uploadImgHandler = async (e: any) => {
@@ -152,19 +155,32 @@ const AddEmployeeInfo = ({
             onChange={handleChange("department")}
             margin="normal"
           /> */}
-          {/* <InputLabel id="department">Department</InputLabel>
+          <InputLabel id="designation">Designation</InputLabel>
           <Select
-            labelId="department"
-            id="department"
-            value={values.department}
-            label="department"
-            onChange={handleChange("department")}
+            labelId="designation"
+            id="designation"
+            value={values.designation}
+            label="Designation"
+            onChange={handleChange("designation")}
           >
-            <MenuItem value="hr">HR</MenuItem>
+            <MenuItem value="pm">PM</MenuItem>
             <MenuItem value="engineer">Engineer</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
+            <MenuItem value="leadEngineer">Lead Engineer</MenuItem>
+            <MenuItem value="associate">Associate</MenuItem>
           </Select>
-          */}
+
+          <InputLabel id="employeeStatus">Employee Status</InputLabel>
+          <Select
+            labelId="employeeStatus"
+            id="employeeStatus"
+            value={values.employeeStatus}
+            label="Employee Status"
+            onChange={handleChange("employeeStatus")}
+          >
+            <MenuItem value="active">Active</MenuItem>
+            <MenuItem value="deactive">Deactive</MenuItem>
+          </Select>
+
           <br />
           <input
             accept="image/*"
