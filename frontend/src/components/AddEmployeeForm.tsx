@@ -18,6 +18,8 @@ type employeeInfoType = {
   address: string;
   salary: string;
   // department: string;
+  designation: string;
+  employeeStatus: string;
   joiningDate: string | Date | null;
   projectName: string;
   responsiblity: string;
@@ -50,6 +52,7 @@ const AddEmployeeForm = () => {
     phone: "",
     address: "",
     salary: "",
+    employeeStatus: "",
     // department: "",
     joiningDate: "",
     projectName: "",
@@ -57,6 +60,7 @@ const AddEmployeeForm = () => {
     status: "",
     bonus: "",
     totalLeave: "",
+    designation: "",
     // admin: "",
     image: "",
   });
@@ -98,6 +102,8 @@ const AddEmployeeForm = () => {
     salary,
     // department,
     joiningDate,
+    designation,
+    employeeStatus,
     projectName,
     responsiblity,
     status,
@@ -118,6 +124,8 @@ const AddEmployeeForm = () => {
     // department,
     joiningDate,
     projectName,
+    designation,
+    employeeStatus,
     responsiblity,
     status,
     bonus,
@@ -196,13 +204,15 @@ const AddEmployeeForm = () => {
         salary: data.salary,
         // department: "",
         joiningDate: data.joiningDate,
+        designation: data.designation,
+        employeeStatus: data.employeeStatus,
         projectName: data.currentProjects.projectName,
         responsiblity: data.currentProjects.responsiblity,
         status: data.currentProjects.status,
         bonus: data.professionalInfo.bonus,
         totalLeave: data.professionalInfo.totalLeave,
         // admin: "",
-        image: "",
+        image: data.image,
       };
       setEmployeeDeatils(updateData);
     } catch (error) {
@@ -225,6 +235,8 @@ const AddEmployeeForm = () => {
           // department: employeeDetails.department,
           image: employeeDetails.image,
           joiningDate: employeeDetails.joiningDate,
+          designation: employeeDetails.designation,
+          employeeStatus: employeeDetails.employeeStatus,
           currentProjects: {
             projectName: employeeDetails.projectName,
             responsiblity: employeeDetails.responsiblity,

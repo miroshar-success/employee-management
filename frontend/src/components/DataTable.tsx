@@ -64,6 +64,12 @@ const DataTable = ({
     }
   };
 
+  // const employeeActiveStatus: any = useRef();
+  // console.log("ref", employeeActiveStatus?.current?.innerText);
+  // if (employeeActiveStatus?.current?.innerText === "active") {
+  //   setEmployeeActive(true);
+  // }
+
   return (
     <Box sx={{ m: 2 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -98,8 +104,9 @@ const DataTable = ({
                 <>
                   <TableCell>Name</TableCell>
                   <Hidden smDown>
-                    <TableCell align="right">Email</TableCell>
-                    <TableCell align="right">Role</TableCell>
+                    <TableCell align="center">Email</TableCell>
+                    <TableCell align="center">Role</TableCell>
+                    <TableCell align="center">Employee Status</TableCell>
                   </Hidden>
                 </>
               ) : (
@@ -131,9 +138,25 @@ const DataTable = ({
                       {row.name}
                     </TableCell>
                     <Hidden smDown>
-                      <TableCell align="right">{row.email}</TableCell>
+                      <TableCell align="center">{row.email}</TableCell>
 
-                      <TableCell align="right">{row.role}</TableCell>
+                      <TableCell align="center">{row.role}</TableCell>
+                      <TableCell
+                        align="center"
+                        style={{
+                          backgroundColor:
+                            row.employeeStatus === "deactive"
+                              ? "red"
+                              : "inherit",
+                          color:
+                            row.employeeStatus === "deactive"
+                              ? "white"
+                              : "inherit",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        {row.employeeStatus}
+                      </TableCell>
                     </Hidden>
                     <TableCell align="right">
                       <Button

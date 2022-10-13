@@ -161,6 +161,8 @@ const MyProfile = () => {
                   <p>Role: {profile?.role}</p>
                   <p>Email: {profile?.email}</p>
                   <p>Phone: {profile?.phone}</p>
+                  <p>Designation: {profile?.designation}</p>
+                  <p>Employee Status: {profile?.employeeStatus}</p>
                 </div>
                 <div>
                   <p>Address: {profile?.address}</p>

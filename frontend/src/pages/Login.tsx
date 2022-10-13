@@ -29,6 +29,10 @@ const Login = () => {
       .then((res: any) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.employeeExists));
+        if (res.data.employeeExists.employeeStatus === "deactive") {
+          alert("Your account is deactivated");
+          return;
+        }
         navigate("/home");
       })
       .catch((err: any) => {
