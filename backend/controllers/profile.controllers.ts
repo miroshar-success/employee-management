@@ -11,6 +11,21 @@ const employeeProfile = async (req: any, res: Response): Promise<void> => {
   res.status(200).json(user);
 };
 
+const updateEmployeeProfile = async (
+  req: any,
+  res: Response
+): Promise<void> => {
+  // const { name, address, image } = req.body;
+  const user = await EmployeeInfo.findByIdAndUpdate(req.userInfo.id, req.body);
+
+  if (!user) {
+    res.status(400).send({ message: "User not found" });
+    throw new Error("User not found");
+  }
+
+  res.status(200).json({ message: "Profile updated successfully" });
+};
+
 const changeEmployeePassword = async (
   req: any,
   res: Response
@@ -34,4 +49,4 @@ const changeEmployeePassword = async (
   await user.save();
   res.status(200).json({ message: "Password updated successfully" });
 };
-export { employeeProfile, changeEmployeePassword };
+export { employeeProfile, changeEmployeePassword, updateEmployeeProfile };

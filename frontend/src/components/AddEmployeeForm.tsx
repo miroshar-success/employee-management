@@ -30,7 +30,10 @@ type employeeInfoType = {
   image?: string;
 };
 
-const AddEmployeeForm = () => {
+const AddEmployeeForm = ({
+  myProfileUpdate = false,
+  setMyProfileUpdate,
+}: any) => {
   const params = useParams();
   const profileId = params.id;
 
@@ -173,6 +176,7 @@ const AddEmployeeForm = () => {
       console.log(error);
     }
     profileId ? getProfile() : console.log("no profile id");
+    myProfileUpdate ? fecthMyProfileData() : console.log("no update");
   }, []);
 
   // useEffect(() => {
@@ -260,6 +264,23 @@ const AddEmployeeForm = () => {
       console.log(error);
     }
   };
+
+  const fecthMyProfileData = async () => {
+    try {
+      const response = await axios("http://localhost:5000/api/v1/profile", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await response.data;
+      console.log("data", data);
+      data.step = 1;
+      setEmployeeDeatils(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // render(){
   //    var  formSteps =()=>{
   //         switch(step){
@@ -288,9 +309,10 @@ const AddEmployeeForm = () => {
             continues={continues}
             joiningDateInfo={joiningDateInfo}
             setJoiningDateInfo={setJoiningDateInfo}
-            employeeDetails={profileId ? employeeDetails : null}
+            employeeDetails={employeeDetails}
             //employeeImg={employeeImg}
             setEmployeeImg={setEmployeeImg}
+            myProfileUpdate={myProfileUpdate}
           />
         );
       case 2:

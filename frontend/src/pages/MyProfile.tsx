@@ -122,6 +122,14 @@ const MyProfile = () => {
               color="primary"
               variant="contained"
               sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+              onClick={() => navigate("/profileEdit")}
+            >
+              Profile Edit
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
               onClick={() => navigate("/payslip")}
             >
               Download Pay Slip
