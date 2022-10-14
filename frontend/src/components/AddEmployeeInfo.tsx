@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import DatePick from "./DatePick";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AddEmployeeInfo = ({
@@ -16,9 +17,10 @@ const AddEmployeeInfo = ({
   setJoiningDateInfo,
   setEmployeeImg,
   employeeDetails = null,
+  myProfileUpdate = false,
 }: any) => {
   console.log("employeeDetails2", employeeDetails);
-  const [uploadingImg, setUploadingImg] = React.useState(false);
+  const navigate = useNavigate();
 
   if (employeeDetails) {
     values.name = employeeDetails.name;
@@ -38,7 +40,6 @@ const AddEmployeeInfo = ({
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    setUploadingImg(true);
 
     try {
       const config = {
@@ -54,11 +55,26 @@ const AddEmployeeInfo = ({
       );
       console.log("data", data);
       setEmployeeImg(data);
-      setUploadingImg(false);
     } catch (error) {
       console.error(error);
-      setUploadingImg(false);
     }
+  };
+
+  const updatedMyProfileData = async () => {
+    try {
+      const updateData = await axios.put(
+        "http://localhost:5000/api/v1/profile/edit",
+        employeeDetails,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      alert(updateData.data.message);
+      navigate("/myprofile");
+    } catch (error) {}
   };
   return (
     <div
@@ -73,6 +89,9 @@ const AddEmployeeInfo = ({
         sx={{
           height: { md: 850, xs: 730, sm: 450 },
           width: { md: 650, xs: 320, sm: 400 },
+          ...(myProfileUpdate && {
+            height: { md: 650, xs: 730, sm: 450 },
+          }),
           bgcolor: "#A5C9CA",
           p: 2,
           display: "flex",
@@ -84,9 +103,19 @@ const AddEmployeeInfo = ({
         }}
       >
         <form style={{ display: "flex", flexDirection: "column" }}>
-          <h2 style={{ textAlign: "center" }}>
-            Add Employee's Personal Information
-          </h2>
+          {myProfileUpdate ? (
+            <>
+              <h2 style={{ textAlign: "center" }}>
+                Update Profile Information
+              </h2>
+            </>
+          ) : (
+            <>
+              <h2 style={{ textAlign: "center" }}>
+                Add Employee's Personal Information
+              </h2>
+            </>
+          )}
           <TextField
             id="name"
             name="name"
@@ -96,33 +125,37 @@ const AddEmployeeInfo = ({
             margin="normal"
           />
 
-          <TextField
-            id="email"
-            name="email"
-            label="Email"
-            value={values.email}
-            onChange={handleChange("email")}
-            margin="normal"
-          />
-          <TextField
-            id="password"
-            name="password"
-            label="Password"
-            value={values.password}
-            onChange={handleChange("password")}
-            margin="normal"
-          />
-          <InputLabel id="role"> Role</InputLabel>
-          <Select
-            labelId="role"
-            id="role"
-            value={values.role}
-            label="role"
-            onChange={handleChange("role")}
-          >
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="employee">Employee</MenuItem>
-          </Select>
+          {myProfileUpdate ? null : (
+            <>
+              <TextField
+                id="email"
+                name="email"
+                label="Email"
+                value={values.email}
+                onChange={handleChange("email")}
+                margin="normal"
+              />
+              <TextField
+                id="password"
+                name="password"
+                label="Password"
+                value={values.password}
+                onChange={handleChange("password")}
+                margin="normal"
+              />
+              <InputLabel id="role"> Role</InputLabel>
+              <Select
+                labelId="role"
+                id="role"
+                value={values.role}
+                label="role"
+                onChange={handleChange("role")}
+              >
+                <MenuItem value="admin">Admin</MenuItem>
+                <MenuItem value="employee">Employee</MenuItem>
+              </Select>
+            </>
+          )}
           <TextField
             id="phone"
             name="phone"
@@ -139,49 +172,6 @@ const AddEmployeeInfo = ({
             onChange={handleChange("address")}
             margin="normal"
           />
-          <TextField
-            id="salary"
-            name="salary"
-            label="Salary"
-            value={values.salary}
-            onChange={handleChange("salary")}
-            margin="normal"
-          />
-          {/* <TextField
-            id="department"
-            name="department"
-            label="Department"
-            value={values.department}
-            onChange={handleChange("department")}
-            margin="normal"
-          /> */}
-          <InputLabel id="designation">Designation</InputLabel>
-          <Select
-            labelId="designation"
-            id="designation"
-            value={values.designation}
-            label="Designation"
-            onChange={handleChange("designation")}
-          >
-            <MenuItem value="pm">PM</MenuItem>
-            <MenuItem value="engineer">Engineer</MenuItem>
-            <MenuItem value="leadEngineer">Lead Engineer</MenuItem>
-            <MenuItem value="associate">Associate</MenuItem>
-          </Select>
-
-          <InputLabel id="employeeStatus">Employee Status</InputLabel>
-          <Select
-            labelId="employeeStatus"
-            id="employeeStatus"
-            value={values.employeeStatus}
-            label="Employee Status"
-            onChange={handleChange("employeeStatus")}
-          >
-            <MenuItem value="active">Active</MenuItem>
-            <MenuItem value="deactive">Deactive</MenuItem>
-          </Select>
-
-          <br />
           <input
             accept="image/*"
             name="image"
@@ -190,23 +180,81 @@ const AddEmployeeInfo = ({
             style={{ padding: 10 }}
             onChange={uploadImgHandler}
           />
+          {myProfileUpdate ? (
+            <>
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                onClick={updatedMyProfileData}
+              >
+                Submit
+              </Button>
+            </>
+          ) : (
+            <>
+              <TextField
+                id="salary"
+                name="salary"
+                label="Salary"
+                value={values.salary}
+                onChange={handleChange("salary")}
+                margin="normal"
+              />
+              {/* <TextField
+            id="department"
+            name="department"
+            label="Department"
+            value={values.department}
+            onChange={handleChange("department")}
+            margin="normal"
+          /> */}
+              <InputLabel id="designation">Designation</InputLabel>
+              <Select
+                labelId="designation"
+                id="designation"
+                value={values.designation}
+                label="Designation"
+                onChange={handleChange("designation")}
+              >
+                <MenuItem value="pm">PM</MenuItem>
+                <MenuItem value="engineer">Engineer</MenuItem>
+                <MenuItem value="leadEngineer">Lead Engineer</MenuItem>
+                <MenuItem value="associate">Associate</MenuItem>
+              </Select>
 
-          <br />
-          <DatePick
-            onChange={handleChange("joiningDate")}
-            joiningDateInfo={joiningDateInfo}
-            setJoiningDateInfo={setJoiningDateInfo}
-          />
-          <br />
-          <br />
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            onClick={continues}
-          >
-            Continue
-          </Button>
+              <InputLabel id="employeeStatus">Employee Status</InputLabel>
+              <Select
+                labelId="employeeStatus"
+                id="employeeStatus"
+                value={values.employeeStatus}
+                label="Employee Status"
+                onChange={handleChange("employeeStatus")}
+              >
+                <MenuItem value="active">Active</MenuItem>
+                <MenuItem value="deactive">Deactive</MenuItem>
+              </Select>
+
+              <br />
+
+              <br />
+              <DatePick
+                onChange={handleChange("joiningDate")}
+                joiningDateInfo={joiningDateInfo}
+                setJoiningDateInfo={setJoiningDateInfo}
+              />
+              <br />
+              <br />
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                onClick={continues}
+              >
+                Continue
+              </Button>
+            </>
+          )}
         </form>
       </Box>
     </div>
