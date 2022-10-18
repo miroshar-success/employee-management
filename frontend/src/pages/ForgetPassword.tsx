@@ -1,28 +1,82 @@
-import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React from "react";
+import { Button, Box, Typography, TextField } from "@mui/material";
 import axios from "axios";
 
 const ForgetPassword = () => {
-  const { id, token } = useParams();
-  const navigate = useNavigate();
-  const [loading, setLoading] = React.useState(true);
+  const [email, setEmail] = React.useState("");
 
-  useEffect(() => {
-    postUserData();
-  }, []);
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    console.log("clicked");
+    console.log({ email });
+    postData();
+  };
 
-  const postUserData = async () => {
-    const userData = await axios.get(
-      `http://localhost:5000/api/v1/resetPassword/${id}/${token}`
-    );
-    if (userData.data) {
-      console.log("userData", userData.data);
-      setLoading(false);
-      navigate("/changepassword");
+  const postData = async () => {
+    if (email) {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/forgetPassword",
+        {
+          email: email,
+        }
+      );
+      const data = await res.data;
+      console.log(data);
     }
   };
 
-  return <>{loading ? <h1>Wait. verifying your account...</h1> : null}</>;
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
+        sx={{
+          height: 400,
+          width: { md: 400, xs: 300 },
+          backgroundColor: "darkslategray",
+          color: "white",
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 1,
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Reset Password
+        </Typography>
+
+        <Box component="form" onSubmit={onSubmit} noValidate sx={{ m: 2 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            onChange={(e: any) => setEmail(e.target.value)}
+            autoComplete="email"
+            autoFocus
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Box>
+    </div>
+  );
 };
 
 export default ForgetPassword;

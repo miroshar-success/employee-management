@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Link from "@mui/material/Link";
 //import { isLogin } from "../utils/auth";
 //import usePost from "../customHooks/usePost";
 
@@ -101,6 +102,13 @@ const Login = () => {
             Sign In
           </Button>
         </Box>
+        <Link
+          href="/forgetpassword"
+          variant="button"
+          sx={{ bgcolor: "white", padding: 1, borderRadius: 1 }}
+        >
+          Forget password
+        </Link>
       </Box>
     </div>
   );

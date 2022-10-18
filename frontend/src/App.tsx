@@ -14,6 +14,7 @@ import ChangePassword from "./pages/ChangePassword";
 import AddEmployeeForm from "./components/AddEmployeeForm";
 import Payslip from "./pages/Payslip";
 import EditMyProfile from "./pages/EditMyProfile";
+import ForgetPasswordVerify from "./pages/ForgetPasswordVerify";
 import ForgetPassword from "./pages/ForgetPassword";
 
 function App() {
@@ -46,7 +47,11 @@ function App() {
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/profileEdit" element={<EditMyProfile />} />
         <Route path="/payslip" element={<Payslip />} />
-        <Route path="/resetPassword/:id/:token" element={<ForgetPassword />} />
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
+        <Route
+          path="/resetPassword/:id/:token"
+          element={<ForgetPasswordVerify />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
