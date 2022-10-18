@@ -2,6 +2,7 @@ import EmployeeInfo from "../models/employeeInfoModel";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import bycrpt from "bcrypt";
 
 const postForgetPassword = async (req: any, res: Response) => {
   const { email } = req.body;
@@ -67,10 +68,10 @@ const postRestPassword = async (req: Request, res: Response) => {
     res.status(400);
     throw new Error("User not exists");
   }
-  //   const salt = await bycrpt.genSalt(10);
-  //   const hash = await bycrpt.hash(updatePassword, salt);
-  //   user.password = hash;
-  //   await user.save();
-  //   res.status(200).json({ message: "Password updated successfully" });
+  const salt = await bycrpt.genSalt(10);
+  const hash = await bycrpt.hash(password, salt);
+  employeeExists.password = hash;
+  await employeeExists.save();
+  res.status(200).json({ message: "Password updated successfully" });
 };
-export { postForgetPassword, getRestPassword };
+export { postForgetPassword, getRestPassword, postRestPassword };

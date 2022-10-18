@@ -1,8 +1,12 @@
 import express from "express";
-import { getRestPassword } from "../controllers/forgetPassword.controller";
+import {
+  getRestPassword,
+  postRestPassword,
+} from "../controllers/forgetPassword.controller";
 
 const router = express.Router();
 
 router.route("/:id/:token").get(getRestPassword);
+router.route("/newPassword").put(postRestPassword);
 
 export default router;
