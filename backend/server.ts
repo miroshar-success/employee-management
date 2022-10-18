@@ -8,6 +8,8 @@ import employeeInfo from "./routes/employeeInfo.route";
 import addProjects from "./routes/addProject.route";
 import projects from "./routes/projects.route";
 import profile from "./routes/profile.route";
+import forgetPassword from "./routes/forgetPassword.route";
+import resetPassword from "./routes/resetPassword.route";
 import { notFound } from "./middlewires/error";
 import imageUpload from "./routes/imageUpload.route";
 import path from "path";
@@ -36,6 +38,8 @@ app.use("/api/v1/addprojects", addProjects);
 app.use("/api/v1/projects", projects);
 app.use("/api/v1/profile", profile);
 app.use("/api/v1/uploads", imageUpload);
+app.use("/api/v1/forgetPassword", forgetPassword);
+app.use("/api/v1/resetPassword", resetPassword);
 
 app.use("/uploads", express.static(path.join(dirname, "/uploads")));
 //test optimization

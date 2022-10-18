@@ -11,26 +11,46 @@ const ChangePassword = () => {
 
   const navigate = useNavigate();
 
+  const decoded = JSON.parse(localStorage.getItem("decoded") || "{}");
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     if (newPassword === confirmPassword) {
-      const res = await axios.put(
-        "http://localhost:5000/api/v1/profile/changePassword",
-        { password: newPassword },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const data = await res.data;
-      console.log("data", data);
-      alert(data.message);
-      navigate("/myprofile");
+      decoded ? forgetPassword() : changePassword();
     } else {
       alert("Password does not match");
     }
+  };
+
+  const changePassword = async () => {
+    const res = await axios.put(
+      "http://localhost:5000/api/v1/profile/changePassword",
+      { password: newPassword },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    const data = await res.data;
+    console.log("data", data);
+    alert(data.message);
+    navigate("/myprofile");
+  };
+
+  const forgetPassword = async () => {
+    const res = await axios.put(
+      "http://localhost:5000/api/v1/resetPassword/newPassword",
+      {
+        password: newPassword,
+        id: decoded._id,
+        email: decoded.email,
+      }
+    );
+    const data = res.data;
+    console.log("data", data);
   };
 
   return (
