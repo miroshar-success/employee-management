@@ -17,7 +17,8 @@ const ChangePassword = () => {
     e.preventDefault();
 
     if (newPassword === confirmPassword) {
-      decoded ? forgetPassword() : changePassword();
+      // console.log("decoded", decoded);
+      decoded === "{}" ? forgetPassword() : changePassword();
     } else {
       alert("Password does not match");
     }
@@ -51,6 +52,8 @@ const ChangePassword = () => {
     );
     const data = res.data;
     console.log("data", data);
+    navigate("/login");
+    localStorage.removeItem("decoded");
   };
 
   return (
