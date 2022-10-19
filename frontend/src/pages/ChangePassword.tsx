@@ -18,7 +18,7 @@ const ChangePassword = () => {
 
     if (newPassword === confirmPassword) {
       // console.log("decoded", decoded);
-      decoded === "{}" ? forgetPassword() : changePassword();
+      decoded.email ? forgetPassword() : changePassword();
     } else {
       alert("Password does not match");
     }
@@ -52,7 +52,7 @@ const ChangePassword = () => {
     );
     const data = res.data;
     console.log("data", data);
-    navigate("/login");
+    navigate("/");
     localStorage.removeItem("decoded");
   };
 
