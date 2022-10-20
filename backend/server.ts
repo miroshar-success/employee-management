@@ -13,6 +13,8 @@ import resetPassword from "./routes/resetPassword.route";
 import { notFound } from "./middlewires/error";
 import imageUpload from "./routes/imageUpload.route";
 import path from "path";
+import { Server } from "socket.io";
+
 // import employee from "./routes/test/employee.route";
 
 dotenv.config();
@@ -47,6 +49,34 @@ app.use("/uploads", express.static(path.join(dirname, "/uploads")));
 
 app.use(notFound);
 
-app.listen(process.env.PORT || 3001, () =>
+var server = app.listen(process.env.PORT || 3001, () =>
   console.log(`Listening on port ${process.env.PORT}`)
 );
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+let onlineUsers: any = [];
+
+const addNewUser = (username: any, socketId: any) => {
+  !onlineUsers.some((user: any) => user.username === username) &&
+    onlineUsers.push({ username, socketId });
+  console.log("o", onlineUsers);
+};
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  console.log(socket.id);
+
+  socket.on("newUser", (username: any) => {
+    console.log("username", username);
+    // console.log("socketId", socket);
+    addNewUser(username, socket.id);
+  });
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});

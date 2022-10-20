@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -16,9 +16,26 @@ import Payslip from "./pages/Payslip";
 import EditMyProfile from "./pages/EditMyProfile";
 import ForgetPasswordVerify from "./pages/ForgetPasswordVerify";
 import ForgetPassword from "./pages/ForgetPassword";
+import { io } from "socket.io-client";
 
 function App() {
   const [isprofiles, setIsProfiles] = React.useState<any>(true);
+  const [socket, setSocket] = useState<any>(null);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    setSocket(io("http://localhost:5000"));
+  }, []);
+
+  useEffect(() => {
+    const userData: any = localStorage.getItem("user");
+    setUserId(JSON.parse(userData)._id);
+    // console.log("userId", userId, socket.emit);
+    if (userId) {
+      socket?.emit("newUser", userId);
+    }
+  }, [socket, userId]);
+
   return (
     <BrowserRouter>
       <NavBar />
