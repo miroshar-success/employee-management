@@ -60,7 +60,10 @@ function App() {
         <Route path="/addProject" element={<AddProject />} />
         <Route path="/addProject/:id" element={<AddProject />} />
         <Route path="/addEmployee" element={<AddEmployee />} />
-        <Route path="/addEmployee/:id" element={<AddEmployeeForm />} />
+        <Route
+          path="/addEmployee/:id"
+          element={<AddEmployeeForm socket={socket} />}
+        />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/profileEdit" element={<EditMyProfile />} />
         <Route path="/payslip" element={<Payslip />} />
