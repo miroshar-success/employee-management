@@ -21,7 +21,7 @@ import { io } from "socket.io-client";
 function App() {
   const [isprofiles, setIsProfiles] = React.useState<any>(true);
   const [socket, setSocket] = useState<any>(null);
-  const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     setSocket(io("http://localhost:5000"));
@@ -29,16 +29,16 @@ function App() {
 
   useEffect(() => {
     const userData: any = localStorage.getItem("user");
-    setUserId(JSON.parse(userData)._id);
+    setUser(JSON.parse(userData)?.name);
     // console.log("userId", userId, socket.emit);
-    if (userId) {
-      socket?.emit("newUser", userId);
+    if (user) {
+      socket?.emit("newUser", user);
     }
-  }, [socket, userId]);
+  }, [socket, user]);
 
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar socket={socket} user={user} />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Homepage />} />

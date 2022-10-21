@@ -67,6 +67,9 @@ const addNewUser = (username: any, socketId: any) => {
   console.log("o", onlineUsers);
 };
 
+const getUser = (username: any) => {
+  return onlineUsers.find((user: any) => user.username === username);
+};
 io.on("connection", (socket) => {
   console.log("a user connected");
   console.log(socket.id);
@@ -75,6 +78,15 @@ io.on("connection", (socket) => {
     console.log("username", username);
     // console.log("socketId", socket);
     addNewUser(username, socket.id);
+  });
+  socket.on("sendNotification", ({ senderName, receiverName, action }) => {
+    console.log("senderName", senderName, "receiverName", receiverName);
+    const receiver = getUser(receiverName);
+    console.log("receiver", receiver);
+    io.to(receiver?.socketId).emit("getNotification", {
+      senderName,
+      action,
+    });
   });
   socket.on("disconnect", () => {
     console.log("user disconnected");

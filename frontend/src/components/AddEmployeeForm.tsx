@@ -261,14 +261,19 @@ const AddEmployeeForm = ({
       );
       console.log("updateData", postData.data);
       navigate("/profiles");
+      notificationHandler();
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const notificationHandler = () => {
-
-  // }
+  const notificationHandler = () => {
+    socket.emit("sendNotification", {
+      senderName: "Admin",
+      receiverName: employeeDetails.name,
+      action: "Your profile has been updated",
+    });
+  };
 
   const fecthMyProfileData = async () => {
     try {

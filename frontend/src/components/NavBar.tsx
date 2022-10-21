@@ -17,7 +17,7 @@ import { MyHeader, LinkText } from "./style/Navbar";
 import { isLogin, isAdmin } from "../utils/auth";
 import { useLocation } from "react-router-dom";
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ socket }: any) => {
   const [isadmin, setIsAdmin] = React.useState(false);
   const location = useLocation();
 
@@ -25,6 +25,13 @@ const ResponsiveAppBar = () => {
     const admin = isAdmin();
     setIsAdmin(admin);
   }, [location]);
+
+  React.useEffect(() => {
+    socket?.on("getNotification", (data: any) => {
+      console.log("data", data);
+      // setNotifications((prev) => [...prev, data]);
+    });
+  }, [socket]);
 
   let pages;
   if (isadmin) {
