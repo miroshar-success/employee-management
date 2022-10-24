@@ -83,6 +83,7 @@ io.on("connection", (socket) => {
     console.log("senderName", senderName, "receiverName", receiverName);
     const receiver = getUser(receiverName);
     console.log("receiver", receiver);
+    console.log("action", action);
     io.to(receiver?.socketId).emit("getNotification", {
       senderName,
       action,
