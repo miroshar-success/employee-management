@@ -189,9 +189,13 @@ const ResponsiveAppBar = ({ socket }: any) => {
             <br />
             {open && (
               <>
-                <Box>
+                <Box
+                  sx={{
+                    bgcolor: "gray",
+                  }}
+                >
                   {notifications?.map((notification: any) => (
-                    <MenuItem>{notification.action}</MenuItem>
+                    <MenuItem>{notification.action} </MenuItem>
                   ))}
                 </Box>
               </>
