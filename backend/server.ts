@@ -62,8 +62,15 @@ const io = new Server(server, {
 let onlineUsers: any = [];
 
 const addNewUser = (username: any, socketId: any) => {
-  !onlineUsers.some((user: any) => user.username === username) &&
+  if (onlineUsers.length === 0) {
     onlineUsers.push({ username, socketId });
+  }
+  if (onlineUsers.length > 0) {
+    onlineUsers = onlineUsers.filter((user: any) => user.username !== username);
+
+    onlineUsers.push({ username, socketId });
+  }
+  console.log(onlineUsers.length);
   console.log("o", onlineUsers);
 };
 
@@ -76,14 +83,13 @@ io.on("connection", (socket) => {
 
   socket.on("newUser", (username: any) => {
     console.log("username", username);
-    // console.log("socketId", socket);
+    console.log("socketId", socket.id);
     addNewUser(username, socket.id);
   });
   socket.on("sendNotification", ({ senderName, receiverName, action }) => {
     console.log("senderName", senderName, "receiverName", receiverName);
     const receiver = getUser(receiverName);
-    console.log("receiver", receiver);
-    console.log("action", action);
+
     io.to(receiver?.socketId).emit("getNotification", {
       senderName,
       action,

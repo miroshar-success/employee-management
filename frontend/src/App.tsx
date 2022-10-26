@@ -30,8 +30,9 @@ function App() {
   useEffect(() => {
     const userData: any = localStorage.getItem("user");
     setUser(JSON.parse(userData)?.name);
-    // console.log("userId", userId, socket.emit);
+
     if (user) {
+      console.log("userId", user, socket);
       socket?.emit("newUser", user);
     }
   }, [socket, user]);
