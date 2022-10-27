@@ -96,6 +96,9 @@ io.on("connection", (socket) => {
     });
   });
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    console.log("user disconnected", socket.id);
+    onlineUsers = onlineUsers.filter(
+      (user: any) => user.socketId !== socket.id
+    );
   });
 });
