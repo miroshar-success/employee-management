@@ -13,6 +13,8 @@ import resetPassword from "./routes/resetPassword.route";
 import { notFound } from "./middlewires/error";
 import imageUpload from "./routes/imageUpload.route";
 import path from "path";
+import { Server } from "socket.io";
+
 // import employee from "./routes/test/employee.route";
 
 dotenv.config();
@@ -47,6 +49,56 @@ app.use("/uploads", express.static(path.join(dirname, "/uploads")));
 
 app.use(notFound);
 
-app.listen(process.env.PORT || 3001, () =>
+var server = app.listen(process.env.PORT || 3001, () =>
   console.log(`Listening on port ${process.env.PORT}`)
 );
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+let onlineUsers: any = [];
+
+const addNewUser = (username: any, socketId: any) => {
+  if (onlineUsers.length === 0) {
+    onlineUsers.push({ username, socketId });
+  }
+  if (onlineUsers.length > 0) {
+    onlineUsers = onlineUsers.filter((user: any) => user.username !== username);
+
+    onlineUsers.push({ username, socketId });
+  }
+  console.log(onlineUsers.length);
+  console.log("o", onlineUsers);
+};
+
+const getUser = (username: any) => {
+  return onlineUsers.find((user: any) => user.username === username);
+};
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  console.log(socket.id);
+
+  socket.on("newUser", (username: any) => {
+    console.log("username", username);
+    console.log("socketId", socket.id);
+    addNewUser(username, socket.id);
+  });
+  socket.on("sendNotification", ({ senderName, receiverName, action }) => {
+    console.log("senderName", senderName, "receiverName", receiverName);
+    const receiver = getUser(receiverName);
+
+    io.to(receiver?.socketId).emit("getNotification", {
+      senderName,
+      action,
+    });
+  });
+  socket.on("disconnect", () => {
+    console.log("user disconnected", socket.id);
+    onlineUsers = onlineUsers.filter(
+      (user: any) => user.socketId !== socket.id
+    );
+  });
+});

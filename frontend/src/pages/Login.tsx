@@ -9,7 +9,7 @@ import Link from "@mui/material/Link";
 //import { isLogin } from "../utils/auth";
 //import usePost from "../customHooks/usePost";
 
-const Login = () => {
+const Login = ({ socket }: any) => {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState("");
 
@@ -28,6 +28,9 @@ const Login = () => {
         password: password,
       })
       .then((res: any) => {
+        const { employeeExists } = res.data;
+        console.log("employeeExists", employeeExists);
+        socket?.emit("newUser", employeeExists.name);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.employeeExists));
         if (res.data.employeeExists.employeeStatus === "deactive") {

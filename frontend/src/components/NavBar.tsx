@@ -13,18 +13,29 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import Badge from "@mui/material/Badge";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import { MyHeader, LinkText } from "./style/Navbar";
 import { isLogin, isAdmin } from "../utils/auth";
 import { useLocation } from "react-router-dom";
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ socket }: any) => {
   const [isadmin, setIsAdmin] = React.useState(false);
+  const [notifications, setNotifications] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
   const location = useLocation();
-
+  console.log("notifications", notifications);
   React.useEffect(() => {
     const admin = isAdmin();
     setIsAdmin(admin);
   }, [location]);
+
+  React.useEffect(() => {
+    socket?.on("getNotification", (data: any) => {
+      console.log("data2", data);
+      setNotifications((prev): any => [...prev, data]);
+    });
+  }, [socket]);
 
   let pages;
   if (isadmin) {
@@ -164,6 +175,31 @@ const ResponsiveAppBar = () => {
                 </Button>
               ))}
             </Box>
+            <Box sx={{ m: 2 }}>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={notifications.length} color="error">
+                  <NotificationsIcon onClick={() => setOpen(!open)} />
+                </Badge>
+              </IconButton>
+            </Box>
+            <br />
+            {open && (
+              <>
+                <Box
+                  sx={{
+                    bgcolor: "gray",
+                  }}
+                >
+                  {notifications?.map((notification: any) => (
+                    <MenuItem>{notification.action} </MenuItem>
+                  ))}
+                </Box>
+              </>
+            )}
 
             {isLogin() ? (
               <Box sx={{ flexGrow: 0 }}>

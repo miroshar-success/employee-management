@@ -33,6 +33,7 @@ type employeeInfoType = {
 const AddEmployeeForm = ({
   myProfileUpdate = false,
   setMyProfileUpdate,
+  socket = null,
 }: any) => {
   const params = useParams();
   const profileId = params.id;
@@ -260,9 +261,18 @@ const AddEmployeeForm = ({
       );
       console.log("updateData", postData.data);
       navigate("/profiles");
+      notificationHandler();
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const notificationHandler = () => {
+    socket.emit("sendNotification", {
+      senderName: "Admin",
+      receiverName: employeeDetails.name,
+      action: "Your profile has been updated",
+    });
   };
 
   const fecthMyProfileData = async () => {

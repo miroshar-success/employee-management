@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -16,14 +16,32 @@ import Payslip from "./pages/Payslip";
 import EditMyProfile from "./pages/EditMyProfile";
 import ForgetPasswordVerify from "./pages/ForgetPasswordVerify";
 import ForgetPassword from "./pages/ForgetPassword";
+import { io } from "socket.io-client";
 
 function App() {
   const [isprofiles, setIsProfiles] = React.useState<any>(true);
+  const [socket, setSocket] = useState<any>(null);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    setSocket(io("http://localhost:5000"));
+  }, []);
+
+  useEffect(() => {
+    const userData: any = localStorage.getItem("user");
+    setUser(JSON.parse(userData)?.name);
+
+    if (user) {
+      console.log("userId", user, socket);
+      socket?.emit("newUser", user);
+    }
+  }, [user, socket]);
+
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar socket={socket} user={user} />
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Login socket={socket} user={user} />} />
         <Route path="/home" element={<Homepage />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/myprofile/:id" element={<MyProfile />} />
@@ -43,7 +61,10 @@ function App() {
         <Route path="/addProject" element={<AddProject />} />
         <Route path="/addProject/:id" element={<AddProject />} />
         <Route path="/addEmployee" element={<AddEmployee />} />
-        <Route path="/addEmployee/:id" element={<AddEmployeeForm />} />
+        <Route
+          path="/addEmployee/:id"
+          element={<AddEmployeeForm socket={socket} />}
+        />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/profileEdit" element={<EditMyProfile />} />
         <Route path="/payslip" element={<Payslip />} />

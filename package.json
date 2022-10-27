@@ -26,6 +26,7 @@
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.19",
     "react-hook-form": "^7.36.0",
+    "socket.io": "^4.5.3",
     "typescript": "^4.8.2",
     "yup": "^0.32.11"
   },
