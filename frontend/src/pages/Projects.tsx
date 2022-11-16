@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import DataTable from "../components/DataTable";
-import { isLogin } from "../utils/auth";
-import useFetch from "../customHooks/useFetch";
-
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import DataTable from "../components/DataTable";
+import { isLogin } from "../utils/auth";
 import Pagination from "../components/Pagination";
 
 const Projects = ({
@@ -29,7 +28,6 @@ const Projects = ({
   }, [currentPage]);
 
   const getProjectData = async () => {
-    console.log("getProjectData");
     try {
       setLoading(true);
       const res = await axios(
@@ -46,35 +44,14 @@ const Projects = ({
     }
     setLoading(false);
   };
-  // getProjectData();
-  //const fecthProjects = useFetch("http://localhost:5000/api/v1/projects");
-  //const { response, error, isLoading } = fecthProjects;
+
   if (error) {
     console.log(error);
   }
-  // console.log("response", fecthProjects);
-  // const { projects, pages, limit }: any = response;
 
   const customData = response;
   console.log("customData", customData);
-  // const customData = [
-  //   {
-  //     id: 1,
-  //     name: "project1",
-  //     client_name: "client1",
-  //     pm: "pm1",
-  //     status: "running",
-  //     deadline: "2023-10-10",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "project2",
-  //     client_name: "client2",
-  //     pm: "pm2",
-  //     status: "delivered",
-  //     deadline: "2021-10-10",
-  //   },
-  // ];
+
   setIsProfiles(false);
   return (
     <div>

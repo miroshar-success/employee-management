@@ -1,14 +1,6 @@
 import { Button, Box } from "@mui/material";
-import React from "react";
 
 const Pagination = ({ setCurrentPages, currentPage }: any) => {
-  const handleNextPage = () => {
-    setCurrentPages((prev: number) => prev + 1);
-  };
-  const handlePrevPage = () => {
-    setCurrentPages((prev: number) => prev - 1);
-  };
-  console.log("currentPage", currentPage);
   return (
     <div style={{ width: "100%", padding: 2 }}>
       <Box
