@@ -1,13 +1,22 @@
 import Projects from "../models/projectModel";
 import { Request, Response } from "express";
 
+interface pageLimit {
+  currentPage?: number;
+  currentLimit?: number;
+}
+
 const allProjects = async (req: Request, res: Response): Promise<void> => {
-  const projects = await Projects.find({});
+  let { currentPage: pages, currentLimit: limit }: pageLimit = req.query;
+  if (!pages) pages = 1;
+  if (!limit) limit = 5;
+  const skip = (pages - 1) * limit;
+  const projects = await Projects.find({}).skip(skip).limit(limit);
   if (!projects) {
     res.status(400).send("No projects found");
     throw new Error("No projects found");
   }
-  res.status(200).json(projects);
+  res.status(200).json({ projects, pages, limit });
 };
 
 const projectDeatils = async (req: Request, res: Response): Promise<void> => {
