@@ -17,6 +17,8 @@ import EditMyProfile from "./pages/EditMyProfile";
 import ForgetPasswordVerify from "./pages/ForgetPasswordVerify";
 import ForgetPassword from "./pages/ForgetPassword";
 import { io } from "socket.io-client";
+import AllLeaveRequest from "./pages/AllLeaveRequest";
+import ClaimLeaveRequest from "./pages/ClaimLeaveRequest";
 
 function App() {
   const [isprofiles, setIsProfiles] = React.useState<any>(true);
@@ -69,6 +71,8 @@ function App() {
         <Route path="/profileEdit" element={<EditMyProfile />} />
         <Route path="/payslip" element={<Payslip />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
+        <Route path="/allLeaveRequest" element={<AllLeaveRequest />} />
+        <Route path="/claimLeaveRequest" element={<ClaimLeaveRequest />} />
         <Route
           path="/resetPassword/:id/:token"
           element={<ForgetPasswordVerify />}
