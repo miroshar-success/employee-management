@@ -37,7 +37,7 @@ const resolveLeaveRequest = async (
 };
 
 const getLeaveRequests = async (req: Request, res: Response): Promise<void> => {
-  const leaveRequests = await LeaveReq.find({}).populate("empolyee");
+  const leaveRequests = await LeaveReq.find({}).populate("employee");
   res.json(leaveRequests);
 };
 export { addLeaveRequest, resolveLeaveRequest, getLeaveRequests };
