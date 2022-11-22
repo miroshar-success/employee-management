@@ -1,13 +1,14 @@
 import LeaveReq from "../models/leaveReqModel";
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 
 const addLeaveRequest = async (req: Request, res: Response): Promise<void> => {
-  const { leaveRequestDate, leaveType, leaveReason, empolyee } = req.body;
+  const { leaveRequestDate, leaveType, leaveReason, employee } = req.body;
   const newLeaveReq = await LeaveReq.create({
     leaveRequestDate,
     leaveType,
     leaveReason,
-    empolyee,
+    employee: employee,
   });
 
   if (newLeaveReq) {

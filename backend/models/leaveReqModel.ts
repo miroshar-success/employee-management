@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 const leaveReqSchema = new mongoose.Schema({
   leaveRequestDate: {
     type: Array,
+    required: true,
   },
   leaveType: {
     type: String,
+    required: true,
   },
   leaveReason: {
     type: String,
@@ -13,7 +15,7 @@ const leaveReqSchema = new mongoose.Schema({
   leaveStatus: {
     type: String,
   },
-  empolyee: {
+  employee: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Employee",
     required: true,
