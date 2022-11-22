@@ -11,51 +11,50 @@ import DateRangePick from "../components/DateRangePick";
 import { DateRange } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { Dayjs } from "dayjs";
 import axios from "axios";
-import e from "express";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ClaimLeaveRequest = () => {
-  const loginUser = localStorage.getItem("user");
-  const employeeId = loginUser ? JSON.parse(loginUser)._id : "";
+  const params = useParams();
+  const employeeId = params.id;
+  const navigate = useNavigate();
 
   const [leaveDurationValue, setLeaveDurationValue] = React.useState<
     DateRange<Dayjs>
   >([null, null]);
-  console.log("leaveDurationValue", leaveDurationValue);
+
   const [leaveRequest, setLeaveRequest] = React.useState<any>({
     leaveType: "",
     leaveReason: "",
     leaveDuration: [] || leaveDurationValue,
-    employee: "" || employeeId,
   });
 
   const handleLeaveRequest = (e: any) => {
     leaveRequest.leaveDuration = leaveDurationValue;
     setLeaveRequest({ ...leaveRequest, [e.target.name]: e.target.value });
   };
-  console.log("leaveRequest", leaveRequest);
 
   const postLeaveRequest = async (e: any) => {
     e.preventDefault();
-    console.log("leaveRequest2", leaveRequest);
-    if (
-      leaveRequest.employee &&
-      leaveRequest.leaveType &&
-      leaveRequest.leaveDuration
-    ) {
-      try {
-        await axios.post(
-          "http://localhost:5000/api/v1/leaveRequest",
-          { ...leaveRequest },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      await axios.post(
+        "http://localhost:5000/api/v1/leaveRequest",
+        {
+          leaveRequestDate: leaveRequest.leaveDuration,
+          leaveType: leaveRequest.leaveType,
+          leaveReason: leaveRequest.leaveReason,
+          employee: employeeId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      alert("Leave Request Submitted");
+      navigate("/myProfile");
+    } catch (error) {
+      console.dir(error);
     }
   };
   return (

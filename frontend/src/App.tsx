@@ -72,7 +72,7 @@ function App() {
         <Route path="/payslip" element={<Payslip />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/allLeaveRequest" element={<AllLeaveRequest />} />
-        <Route path="/claimLeaveRequest" element={<ClaimLeaveRequest />} />
+        <Route path="/claimLeaveRequest/:id" element={<ClaimLeaveRequest />} />
         <Route
           path="/resetPassword/:id/:token"
           element={<ForgetPasswordVerify />}

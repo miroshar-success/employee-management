@@ -130,7 +130,7 @@ const MyProfile = () => {
               color="primary"
               variant="contained"
               sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
-              onClick={() => navigate("/claimLeaveRequest")}
+              onClick={() => navigate(`/claimLeaveRequest/${profile._id}`)}
             >
               Claim Leave Request
             </Button>
