@@ -52,7 +52,7 @@ const ClaimLeaveRequest = () => {
         }
       );
       alert("Leave Request Submitted");
-      navigate("/myProfile");
+      navigate("/leaveRequestStatus");
     } catch (error) {
       console.dir(error);
     }
