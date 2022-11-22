@@ -72,6 +72,12 @@ const employeeInfoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    leaveRequest: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "LeaveReq",
+      },
+    ],
   },
   {
     timestamps: true,

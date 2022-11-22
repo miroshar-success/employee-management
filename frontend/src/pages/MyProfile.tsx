@@ -130,6 +130,22 @@ const MyProfile = () => {
               color="primary"
               variant="contained"
               sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+              onClick={() => navigate(`/claimLeaveRequest/${profile._id}`)}
+            >
+              Claim Leave Request
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
+              onClick={() => navigate("/leaveRequestStatus")}
+            >
+              Leave Request Status
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ height: "3rem", p: 2, mt: 2, color: "white" }}
               onClick={() => navigate("/payslip")}
             >
               Download Pay Slip

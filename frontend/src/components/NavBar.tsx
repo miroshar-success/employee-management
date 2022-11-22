@@ -45,6 +45,7 @@ const ResponsiveAppBar = ({ socket }: any) => {
       // ["My Projects", "/myprojects"],
       ["Projects", "/projects"],
       ["Profiles", "/profiles"],
+      ["Leave Requests", "/allLeaveRequest"],
     ];
   } else {
     pages = [
