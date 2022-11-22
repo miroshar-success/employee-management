@@ -29,4 +29,6 @@
 * Every employee can change some of his/her personal information like address, photo and phone number
 * Every user can download his/her payslip as pdf document
 * User can search any data using search bar
+* Employee can claim leave request
+* Admin can resolve the leave request. But Admin can't resolve his/her own leave request
 
