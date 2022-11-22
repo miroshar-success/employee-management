@@ -17,7 +17,7 @@ type employeeInfoType = {
   phone: string;
   address: string;
   salary: string;
-  // department: string;
+
   designation: string;
   employeeStatus: string;
   joiningDate: string | Date | null;
@@ -26,7 +26,6 @@ type employeeInfoType = {
   status: string;
   bonus: string;
   totalLeave: string;
-  // admin: string;
   image?: string;
 };
 
@@ -57,7 +56,6 @@ const AddEmployeeForm = ({
     address: "",
     salary: "",
     employeeStatus: "",
-    // department: "",
     joiningDate: "",
     projectName: "",
     responsiblity: "",
@@ -65,18 +63,15 @@ const AddEmployeeForm = ({
     bonus: "",
     totalLeave: "",
     designation: "",
-    // admin: "",
     image: "",
   });
 
   if (employeeImg) {
     employeeDetails.image = employeeImg;
   }
-  console.log({ employeeDetails });
 
   const continues = (e: any) => {
     e.preventDefault();
-    console.log("step", step);
     setEmployeeDeatils({ ...employeeDetails, step: employeeDetails.step + 1 });
   };
 
@@ -86,14 +81,10 @@ const AddEmployeeForm = ({
   };
 
   const handleChange = (input: any) => (e: any) => {
-    console.log("a", input, e.target.value);
-    console.log("j", joiningDateInfo);
     setEmployeeDeatils({ ...employeeDetails, [input]: e.target.value });
   };
 
   employeeDetails.joiningDate = joiningDateInfo!.toString();
-
-  console.log("employeeDetails", employeeDetails);
 
   const { step } = employeeDetails;
   const {
@@ -104,7 +95,6 @@ const AddEmployeeForm = ({
     phone,
     address,
     salary,
-    // department,
     joiningDate,
     designation,
     employeeStatus,
@@ -113,7 +103,6 @@ const AddEmployeeForm = ({
     status,
     bonus,
     totalLeave,
-    // admin,
     image,
   } = employeeDetails;
 
@@ -125,7 +114,6 @@ const AddEmployeeForm = ({
     phone,
     address,
     salary,
-    // department,
     joiningDate,
     projectName,
     designation,
@@ -134,7 +122,6 @@ const AddEmployeeForm = ({
     status,
     bonus,
     totalLeave,
-    // admin,
     image,
   ];
 
@@ -150,7 +137,7 @@ const AddEmployeeForm = ({
           },
         }
       );
-      console.log("postData", postData.data);
+
       navigate("/profiles");
     } catch (error) {
       console.log(error);
@@ -159,7 +146,6 @@ const AddEmployeeForm = ({
 
   useEffect(() => {
     if (employeeDetails.bonus && employeeDetails.totalLeave) {
-      console.log(">>", employeeDetails.totalLeave);
       profileId ? console.log("post error") : postEmployeeData();
     }
     employeeDetails.step === 4 && profileId
@@ -170,7 +156,6 @@ const AddEmployeeForm = ({
   useEffect(() => {
     try {
       axios.get("http://localhost:5000/api/v1/projects").then((res) => {
-        console.log("res", res.data);
         setProjectList(res.data);
       });
     } catch (error) {
@@ -179,10 +164,6 @@ const AddEmployeeForm = ({
     profileId ? getProfile() : console.log("no profile id");
     myProfileUpdate ? fecthMyProfileData() : console.log("no update");
   }, []);
-
-  // useEffect(() => {
-  //   profileId ? updateEmployeeData() : console.log("no profile id");
-  // });
 
   const getProfile = async () => {
     try {
@@ -195,7 +176,6 @@ const AddEmployeeForm = ({
           },
         }
       );
-      console.log("res", res.data);
       const data = res.data;
       data.step = 1;
       const updateData = {
@@ -207,7 +187,7 @@ const AddEmployeeForm = ({
         phone: data.phone,
         address: data.address,
         salary: data.salary,
-        // department: "",
+
         joiningDate: data.joiningDate,
         designation: data.designation,
         employeeStatus: data.employeeStatus,
@@ -216,7 +196,7 @@ const AddEmployeeForm = ({
         status: data.currentProjects.status,
         bonus: data.professionalInfo.bonus,
         totalLeave: data.professionalInfo.totalLeave,
-        // admin: "",
+
         image: data.image,
       };
       setEmployeeDeatils(updateData);
@@ -237,7 +217,7 @@ const AddEmployeeForm = ({
           phone: employeeDetails.phone,
           address: employeeDetails.address,
           salary: employeeDetails.salary,
-          // department: employeeDetails.department,
+
           image: employeeDetails.image,
           joiningDate: employeeDetails.joiningDate,
           designation: employeeDetails.designation,
@@ -259,7 +239,6 @@ const AddEmployeeForm = ({
           },
         }
       );
-      console.log("updateData", postData.data);
       navigate("/profiles");
       notificationHandler();
     } catch (error) {
@@ -284,30 +263,12 @@ const AddEmployeeForm = ({
         },
       });
       const data = await response.data;
-      console.log("data", data);
       data.step = 1;
       setEmployeeDeatils(data);
     } catch (error) {
       console.log(error);
     }
   };
-  // render(){
-  //    var  formSteps =()=>{
-  //         switch(step){
-  //             case 1:
-  //                 return <PersonalDetails/>;
-  //             case 2:
-  //                 return <ProfessionalDetails/>;
-  //             case 3:
-  //                 return <ProjectDetails/>;
-  //             case 4:
-  //                 return <SuccessInfo/>;
-  //             default:
-  //                 return <PersonalDetails/>;
-
-  //         }
-  //     }
-  // }
 
   const renderContent = () => {
     switch (step) {
@@ -320,7 +281,6 @@ const AddEmployeeForm = ({
             joiningDateInfo={joiningDateInfo}
             setJoiningDateInfo={setJoiningDateInfo}
             employeeDetails={employeeDetails}
-            //employeeImg={employeeImg}
             setEmployeeImg={setEmployeeImg}
             myProfileUpdate={myProfileUpdate}
           />
@@ -353,27 +313,7 @@ const AddEmployeeForm = ({
     }
   };
 
-  return (
-    <div>
-      {/* <input
-        type="file"
-        accept=".csv,.xlsx,.xls"
-        onChange={(e) => {
-          const files = e.target.files;
-          console.log(files);
-          if (files) {
-            console.log(files[0]);
-            Papa.parse(files[0], {
-              complete: function (results) {
-                console.log("Finished:", results.data);
-              },
-            });
-          }
-        }}
-      /> */}
-      {renderContent()}
-    </div>
-  );
+  return <div>{renderContent()}</div>;
 };
 
 export default AddEmployeeForm;

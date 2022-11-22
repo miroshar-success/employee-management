@@ -30,7 +30,6 @@ const DataTable = ({
   const searchData = (searchQuery: string | null, customData: any) => {
     if (searchQuery) {
       return customData.filter((data: any) => {
-        console.log(data.email);
         return isprofiles
           ? data.email.toLowerCase().includes(searchQuery.trim())
           : data.name.toLowerCase().includes(searchQuery.trim());
@@ -40,8 +39,6 @@ const DataTable = ({
   };
 
   const filterData = searchData(searchQuery, customData);
-  // console.log("fi", searchData(searchQuery, customData));
-  // console.log("f", filterData);
 
   useEffect(() => {
     if (!isLogin() && !isAdmin()) {
@@ -64,12 +61,6 @@ const DataTable = ({
       window.location.reload();
     }
   };
-
-  // const employeeActiveStatus: any = useRef();
-  // console.log("ref", employeeActiveStatus?.current?.innerText);
-  // if (employeeActiveStatus?.current?.innerText === "active") {
-  //   setEmployeeActive(true);
-  // }
 
   return (
     <Box sx={{ m: 2 }}>
@@ -211,26 +202,11 @@ const DataTable = ({
                     )}
                   </>
                 )}
-                {/* {isprofiles ? (
-                  <TableCell align="right">Details</TableCell>
-                ) : (
-                  <TableCell align="right">
-                    <Button
-                      variant="contained"
-                      sx={{ m: 1 }}
-                      onClick={() => navigate("/addProject/:id")}
-                    >
-                      Edit
-                    </Button>
-                    <Button variant="contained" onClick={()=>handleProjectDelete()}>Delete</Button>
-                  </TableCell>
-                )} */}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <Pagination /> */}
     </Box>
   );
 };

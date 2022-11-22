@@ -22,7 +22,7 @@ const AddEmployeeProject = ({
     values.responsibility = employeeDetails.responsibility;
     values.status = employeeDetails.status;
   }
-  console.log("employeeDetails3", employeeDetails);
+
   return (
     <div
       style={{
@@ -62,7 +62,7 @@ const AddEmployeeProject = ({
               return <MenuItem value={project.name}>{project.name}</MenuItem>;
             })}
           </Select>
-          {/* {employeeDetails ? <p>{values.projectName}</p> : null} */}
+
           <InputLabel id="responsiblity">Employee Responsiblity</InputLabel>
           <Select
             labelId="responsiblity"
@@ -75,7 +75,7 @@ const AddEmployeeProject = ({
               return <MenuItem value={role}>{role}</MenuItem>;
             })}
           </Select>
-          {/* {employeeDetails ? <p>{employeeDetails.responsiblity}</p> : null} */}
+
           <InputLabel id="status">Project Status</InputLabel>
           <Select
             labelId="status"
@@ -88,7 +88,7 @@ const AddEmployeeProject = ({
               return <MenuItem value={status}>{status}</MenuItem>;
             })}
           </Select>
-          {/* {employeeDetails ? <p>{employeeDetails.status}</p> : null} */}
+
           <br />
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
