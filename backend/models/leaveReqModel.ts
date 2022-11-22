@@ -14,6 +14,8 @@ const leaveReqSchema = new mongoose.Schema({
   },
   leaveStatus: {
     type: String,
+    required: true,
+    default: "Pending",
   },
   employee: {
     type: mongoose.Schema.Types.ObjectId,
