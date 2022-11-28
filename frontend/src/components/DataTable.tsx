@@ -12,7 +12,6 @@ import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
 import { isLogin, isAdmin } from "../utils/auth";
 import axios from "axios";
-import Pagination from "./Pagination";
 
 type searchData = string | null;
 
