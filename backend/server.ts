@@ -13,6 +13,8 @@ import resetPassword from "./routes/resetPassword.route";
 import { notFound } from "./middlewires/error";
 import imageUpload from "./routes/imageUpload.route";
 import leaveRequest from "./routes/leaveRequest.route";
+import noticeFileUploads from "./routes/noticeFileUploads.route";
+import notice from "./routes/notice.route";
 import path from "path";
 import { Server } from "socket.io";
 
@@ -44,8 +46,14 @@ app.use("/api/v1/uploads", imageUpload);
 app.use("/api/v1/forgetPassword", forgetPassword);
 app.use("/api/v1/resetPassword", resetPassword);
 app.use("/api/v1/leaveRequest", leaveRequest);
+app.use("/api/v1/noticeFileUploads", noticeFileUploads);
+app.use("/api/v1/notice", notice);
 
 app.use("/uploads", express.static(path.join(dirname, "/uploads")));
+app.use(
+  "/noticeFileUploads",
+  express.static(path.join(dirname, "/noticeFileUploads"))
+);
 //test optimization
 //app.use("/api/v1/createEmployee", employee);
 

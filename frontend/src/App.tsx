@@ -20,6 +20,8 @@ import { io } from "socket.io-client";
 import AllLeaveRequest from "./pages/AllLeaveRequest";
 import ClaimLeaveRequest from "./pages/ClaimLeaveRequest";
 import LeaveReqStatus from "./pages/LeaveReqStatus";
+import NoticeBoard from "./pages/NoticeBoard";
+import ShowNotice from "./pages/ShowNotice";
 
 function App() {
   const [isprofiles, setIsProfiles] = React.useState<any>(true);
@@ -75,6 +77,8 @@ function App() {
         <Route path="/allLeaveRequest" element={<AllLeaveRequest />} />
         <Route path="/leaveRequestStatus" element={<LeaveReqStatus />} />
         <Route path="/claimLeaveRequest/:id" element={<ClaimLeaveRequest />} />
+        <Route path="/noticeboard" element={<NoticeBoard />} />
+        <Route path="/showNoticeBoard" element={<ShowNotice />} />
         <Route
           path="/resetPassword/:id/:token"
           element={<ForgetPasswordVerify />}
