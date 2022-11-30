@@ -42,6 +42,8 @@
 * Add, Edit, Acive, Inactive and Delete project details
 * Admin can resolve leave request.
      * Admin can't resolve his/her own leave request.
+* Create notice for employee
+ 
 
 
 
