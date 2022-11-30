@@ -37,7 +37,7 @@
 <b>Only Admin Features</b>
 * View All employee's personal information details
 * Add, Edit, Acive, Deactive and Delete employee's profile
-      * Deactive users can't login in this system with correct credientials
+  * Deactive users can't login in this system with correct credientials
 * View all project details
 * Add, Edit, Acive, Inactive and Delete project details
 * Admin can resolve leave request.
