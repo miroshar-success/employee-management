@@ -12,23 +12,36 @@
 * Express.js
 * MongoDB
 * Socket.io
-* Redis server 
+
 
 
 ### Features:
-
-* User Authentication
-* Role base Authorization
+* Login
+* Role base authentication
 * Change password
 * Forget password
-* Admin can view all employees and projects data.
-* Admin can add, delete, edit and update employees information and project information.
-* Admin can deactive any user. Deactive user can't login with correct credientials.
-* If Admin change any user's information, user get real time nofication of that update.
-* Every employee (admins & employees) can view his/her personal and project information
-* Every employee can change some of his/her personal information like address, photo and phone number
-* Every user can download his/her payslip as pdf document
-* User can search any data using search bar
-* Employee can claim leave request
-* Admin can resolve the leave request. But Admin can't resolve his/her own leave request
+* View Personal Information Details
+* Edit some insensitive personal information
+* View All Project Information
+* Claim leave request
+* Show the all leave request details
+* Download payslip
+* Real time notification
+    * If Admin change any employee's profile, then he/she get notification.
+    * That employee must be logged in. 
+* Can see all notice
+    * Can see all general notice
+    * can see his/her personal notice
+    * Can't see any other employee's personal notice
+
+<b>Only Admin Features</b>
+* View All employee's personal information details
+* Add, Edit, Acive, Deactive and Delete employee's profile
+      * Deactive users can't login in this system with correct credientials
+* View all project details
+* Add, Edit, Acive, Inactive and Delete project details
+* Admin can resolve leave request.
+     * Admin can't resolve his/her own leave request.
+
+
 
