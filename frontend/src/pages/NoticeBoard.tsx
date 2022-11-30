@@ -1,16 +1,16 @@
 import React from "react";
 import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
-import e from "express";
+import { useNavigate } from "react-router-dom";
 
 const NoticeBoard = () => {
+  const navigate = useNavigate();
   const [notice, setNotice] = React.useState({
     email: "",
     title: "",
     noticeText: "",
     noticeFile: "",
   });
-  console.log({ notice });
 
   const uploadImgHandler = async (e: any) => {
     const file = e.target.files[0];
@@ -29,7 +29,6 @@ const NoticeBoard = () => {
         formData,
         config
       );
-      console.log("data", data);
       setNotice({ ...notice, noticeFile: data });
     } catch (error) {
       console.error(error);
@@ -38,8 +37,6 @@ const NoticeBoard = () => {
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
-    // console.log(e.target.value, e.target.name);
-    // setNotice({ ...notice, [e.target.name]: e.target.value });
     try {
       const { data } = await axios.post(
         "http://localhost:5000/api/v1/notice",
@@ -57,6 +54,7 @@ const NoticeBoard = () => {
         }
       );
       console.log("data", data);
+      navigate("/showNoticeBoard");
     } catch (error) {
       console.error(error);
     }

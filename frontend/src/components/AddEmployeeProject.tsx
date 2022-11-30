@@ -14,7 +14,7 @@ const AddEmployeeProject = ({
   employeeDetails = null,
 }: any) => {
   const { projects } = projectList;
-  console.log(projectList);
+
   const Responsiblitites = ["Frontend", "Backend", "Fullstack", "DevOps"];
 
   const projectStatus = ["Active", "Inactive"];
