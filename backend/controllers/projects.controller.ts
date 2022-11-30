@@ -8,15 +8,23 @@ interface pageLimit {
 
 const allProjects = async (req: Request, res: Response): Promise<void> => {
   let { currentPage: pages, currentLimit: limit }: pageLimit = req.query;
-  if (!pages) pages = 1;
-  if (!limit) limit = 5;
-  const skip = (pages - 1) * limit;
-  const projects = await Projects.find({}).skip(skip).limit(limit);
-  if (!projects) {
-    res.status(400).send("No projects found");
-    throw new Error("No projects found");
+
+  if (pages && limit) {
+    const skip = (pages - 1) * limit;
+    const projects = await Projects.find({}).skip(skip).limit(limit);
+    if (!projects) {
+      res.status(400).send("No projects found");
+      throw new Error("No projects found");
+    }
+    res.status(200).json({ projects, pages, limit });
+  } else {
+    const projects = await Projects.find({});
+    if (!projects) {
+      res.status(400).send("No projects found");
+      throw new Error("No projects found");
+    }
+    res.status(200).json({ projects, pages, limit });
   }
-  res.status(200).json({ projects, pages, limit });
 };
 
 const projectDeatils = async (req: Request, res: Response): Promise<void> => {

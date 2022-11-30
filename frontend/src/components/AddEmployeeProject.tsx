@@ -13,6 +13,8 @@ const AddEmployeeProject = ({
   projectList,
   employeeDetails = null,
 }: any) => {
+  const { projects } = projectList;
+  console.log(projectList);
   const Responsiblitites = ["Frontend", "Backend", "Fullstack", "DevOps"];
 
   const projectStatus = ["Active", "Inactive"];
@@ -58,7 +60,7 @@ const AddEmployeeProject = ({
             label="Project Name"
             onChange={handleChange("projectName")}
           >
-            {projectList.map((project: any) => {
+            {projects.map((project: any) => {
               return <MenuItem value={project.name}>{project.name}</MenuItem>;
             })}
           </Select>
