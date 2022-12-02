@@ -1,8 +1,10 @@
 import React from "react";
 import { Button, Box, Typography, TextField } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
 
   const onSubmit = (e: any) => {
@@ -23,6 +25,7 @@ const ForgetPassword = () => {
       const data = await res.data;
       console.log(data);
     }
+    navigate("/");
   };
 
   return (
