@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import axios from "axios";
 import {
   Box,
   Button,
@@ -10,8 +12,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import axios from "axios";
-import React, { useEffect } from "react";
 
 const AllLeaveRequest = () => {
   const [allLeaveRequest, setAllLeaveRequest] = React.useState<any>([]);
@@ -22,7 +22,7 @@ const AllLeaveRequest = () => {
   useEffect(() => {
     fetchAllLeaveRequest();
   }, []);
-  console.log({ allLeaveRequest });
+
   const fetchAllLeaveRequest = async () => {
     try {
       const leaveData = await axios.get(
@@ -57,12 +57,11 @@ const AllLeaveRequest = () => {
       );
       alert(`Leave Request ${value}`);
       window.location.reload();
-      console.log("RD", resolvedData.data);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log({ allLeaveRequest });
+
   return (
     <Box sx={{ m: 2 }}>
       <Box

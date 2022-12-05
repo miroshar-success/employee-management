@@ -25,8 +25,6 @@ const LeaveReqDataTable = ({ allLeaveRequest }: any) => {
     }
   }, [allLeaveRequest]);
 
-  console.log({ leaveData });
-
   return (
     <Box sx={{ m: 2 }}>
       <Box

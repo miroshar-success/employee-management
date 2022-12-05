@@ -1,7 +1,10 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import dotenv from "dotenv";
-import connectDB from "./config/config";
+import { Server } from "socket.io";
 import cors from "cors";
+import path from "path";
+
+import connectDB from "./config/config";
 import addEmployee from "./routes/addEmployee.route";
 import loginUser from "./routes/login.route";
 import employeeInfo from "./routes/employeeInfo.route";
@@ -15,10 +18,6 @@ import imageUpload from "./routes/imageUpload.route";
 import leaveRequest from "./routes/leaveRequest.route";
 import noticeFileUploads from "./routes/noticeFileUploads.route";
 import notice from "./routes/notice.route";
-import path from "path";
-import { Server } from "socket.io";
-
-// import employee from "./routes/test/employee.route";
 
 dotenv.config();
 connectDB();
@@ -54,8 +53,6 @@ app.use(
   "/noticeFileUploads",
   express.static(path.join(dirname, "/noticeFileUploads"))
 );
-//test optimization
-//app.use("/api/v1/createEmployee", employee);
 
 app.use(notFound);
 
@@ -80,8 +77,8 @@ const addNewUser = (username: any, socketId: any) => {
 
     onlineUsers.push({ username, socketId });
   }
-  console.log(onlineUsers.length);
-  console.log("o", onlineUsers);
+
+  console.log("onilne users connected with eachother", onlineUsers);
 };
 
 const getUser = (username: any) => {

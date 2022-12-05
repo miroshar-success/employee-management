@@ -9,8 +9,6 @@ const ForgetPassword = () => {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log("clicked");
-    console.log({ email });
     postData();
   };
 

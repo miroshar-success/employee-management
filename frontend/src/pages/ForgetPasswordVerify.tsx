@@ -18,7 +18,7 @@ const ForgetPasswordVerify = () => {
     if (userData.data) {
       const { decoded } = userData.data;
       localStorage.setItem("decoded", JSON.stringify(decoded));
-      console.log("userData", userData.data, decoded);
+
       setLoading(false);
       navigate("/changepassword");
     }

@@ -1,5 +1,5 @@
-import Notice from "../models/noticeModel";
 import { Request, Response } from "express";
+import Notice from "../models/noticeModel";
 
 export const getNotice = async (req: Request, res: Response) => {
   try {
@@ -12,7 +12,6 @@ export const getNotice = async (req: Request, res: Response) => {
 
 export const createNotice = async (req: Request, res: Response) => {
   const notice = req.body;
-  console.log({ notice });
   const newNotice = new Notice(notice);
   try {
     await newNotice.save();

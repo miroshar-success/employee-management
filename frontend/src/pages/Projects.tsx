@@ -19,7 +19,7 @@ const Projects = ({
   const [response, setResponse] = React.useState([]);
   const [currentPage, setCurrentPages] = React.useState(1);
   const [currentLimit, setCurrentLimit] = React.useState(3);
-  console.log("currentPage", typeof currentPage);
+
   useEffect(() => {
     if (!isLogin()) {
       navigate("/");
@@ -35,7 +35,7 @@ const Projects = ({
       );
       const json = await res.data;
       const { projects, pages, limit } = json;
-      console.log({ projects, pages, limit });
+
       setResponse(projects);
       setCurrentPages(pages);
       setCurrentLimit(limit);
@@ -50,7 +50,6 @@ const Projects = ({
   }
 
   const customData = response;
-  console.log("customData", customData);
 
   setIsProfiles(false);
   return (

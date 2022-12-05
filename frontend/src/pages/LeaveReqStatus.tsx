@@ -1,5 +1,6 @@
-import axios from "axios";
 import React, { useEffect } from "react";
+import axios from "axios";
+
 import LeaveReqDataTable from "../components/LeaveReqDataTable";
 
 const LeaveReqStatus = () => {
@@ -8,7 +9,7 @@ const LeaveReqStatus = () => {
   useEffect(() => {
     fetchAllLeaveRequest();
   }, []);
-  console.log({ allLeaveRequest });
+
   const fetchAllLeaveRequest = async () => {
     try {
       const leaveData = await axios.get(

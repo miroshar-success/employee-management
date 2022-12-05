@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, TextField } from "@mui/material";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const NoticeBoard = () => {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ const NoticeBoard = () => {
           },
         }
       );
-      console.log("data", data);
+
       navigate("/showNoticeBoard");
     } catch (error) {
       console.error(error);
