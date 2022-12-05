@@ -9,10 +9,8 @@ const Payslip = () => {
     const data = JSON.parse(localStorage.getItem("user") || "[]");
     setPayslipData(data);
   }, []);
-  console.log({ payslipData });
 
   const { name, email, salary, role, joingDate } = payslipData;
-  //const date: any = new Date(joingDate);
 
   return (
     <div>

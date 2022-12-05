@@ -1,14 +1,6 @@
-import React from "react";
-import TextField from "@mui/material/TextField";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import Select from "@mui/material/Select";
-// import DatePick from "./DatePick";
-import { Box } from "@mui/system";
 import { Button } from "@mui/material";
-// import DateRangePick from "./DateRangePick";
-// import { Dayjs } from "dayjs";
-// import { DateRange } from "@mui/x-date-pickers-pro/DateRangePicker";
+import TextField from "@mui/material/TextField";
+import { Box } from "@mui/system";
 
 const AddEmployeeProfessional = ({
   handleChange,
@@ -17,10 +9,6 @@ const AddEmployeeProfessional = ({
   back,
   employeeDetails = null,
 }: any) => {
-  // const [ProjectDurationValue, setProjectDurationValue] = React.useState<
-  //   DateRange<Dayjs>
-  // >([null, null]);
-
   if (employeeDetails) {
     values.bonus = employeeDetails.bonus;
     values.totalLeave = employeeDetails.totalLeave;
@@ -61,7 +49,7 @@ const AddEmployeeProfessional = ({
             onChange={handleChange("bonus")}
             margin="normal"
           />
-          {/* {employeeDetails && <p>{employeeDetails.bonus}</p>} */}
+
           <TextField
             id="totalLeave"
             name="totalLeave"
@@ -70,7 +58,7 @@ const AddEmployeeProfessional = ({
             onChange={handleChange("totalLeave")}
             margin="normal"
           />
-          {/* {employeeDetails && <p>{employeeDetails.totalLeave}</p>} */}
+
           <br />
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>

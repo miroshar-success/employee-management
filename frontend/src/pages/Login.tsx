@@ -1,13 +1,12 @@
-import React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
-//import { isLogin } from "../utils/auth";
-//import usePost from "../customHooks/usePost";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+
+import axios from "axios";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ socket }: any) => {
   const [email, setEmail] = React.useState(null);
@@ -29,7 +28,7 @@ const Login = ({ socket }: any) => {
       })
       .then((res: any) => {
         const { employeeExists } = res.data;
-        console.log("employeeExists", employeeExists);
+
         socket?.emit("newUser", employeeExists.name);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.employeeExists));

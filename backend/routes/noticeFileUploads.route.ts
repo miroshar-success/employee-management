@@ -1,7 +1,8 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
-import { Request, Response } from "express";
+import { Response } from "express";
+
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -20,7 +21,6 @@ const upload = multer({ storage: storage });
 
 router.post("/", upload.single("file"), (req: any, res: Response) => {
   const fileUrl = req.file.path.replace(/\\/g, "/");
-  console.log(fileUrl);
   res.send(`/${fileUrl}`);
 });
 

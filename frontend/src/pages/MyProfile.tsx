@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+
 import { isLogin } from "../utils/auth";
-import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const MyProfile = () => {
   const navigate = useNavigate();
@@ -32,7 +34,6 @@ const MyProfile = () => {
       }
     );
 
-    console.log("response", response.data);
     setProfile(response.data);
   };
 
@@ -45,14 +46,12 @@ const MyProfile = () => {
         },
       });
       const data = await response.data;
-      console.log("data", data);
+
       setProfile(data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(profile.image);
 
   const handleProfileDelete = async (id: string) => {
     const removeData = await axios.delete(

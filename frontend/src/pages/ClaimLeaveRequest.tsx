@@ -1,3 +1,7 @@
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+
 import {
   Box,
   Button,
@@ -6,12 +10,10 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React from "react";
-import DateRangePick from "../components/DateRangePick";
 import { DateRange } from "@mui/x-date-pickers-pro/DateRangePicker";
+
 import { Dayjs } from "dayjs";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import DateRangePick from "../components/DateRangePick";
 
 const ClaimLeaveRequest = () => {
   const params = useParams();
@@ -54,7 +56,7 @@ const ClaimLeaveRequest = () => {
       alert("Leave Request Submitted");
       navigate("/leaveRequestStatus");
     } catch (error) {
-      console.dir(error);
+      console.log(error);
     }
   };
   return (

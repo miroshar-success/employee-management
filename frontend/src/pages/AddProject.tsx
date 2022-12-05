@@ -1,20 +1,23 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import TextField from "@mui/material/TextField";
-import { useFormik } from "formik";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
-import DateRangePick from "../components/DateRangePick";
-import "./style/AddProject.css";
-import { Dayjs } from "dayjs";
 import { DateRange } from "@mui/x-date-pickers-pro/DateRangePicker";
-import { isLogin, isAdmin } from "../utils/auth";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import * as yup from "yup";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { Dayjs } from "dayjs";
+
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+import "./style/AddProject.css";
+import { isAdmin } from "../utils/auth";
+import DateRangePick from "../components/DateRangePick";
 
 const validationSchema = yup.object({
   name: yup.string().required("Name is required"),
@@ -32,7 +35,7 @@ const AddProject = () => {
   >([null, null]);
   const [pm, setPm] = React.useState<any>([]);
   const navigate = useNavigate();
-  // console.log("po", ProjectDurationValue);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -66,7 +69,7 @@ const AddProject = () => {
           }
         );
         const data = await res.data;
-        console.log("data", data);
+
         formik.values.name = data.name;
         formik.values.client = data.client;
         formik.values.pm = data.pm;
@@ -133,7 +136,6 @@ const AddProject = () => {
         headers: headers,
       });
       const json = await res.data;
-      console.log("json", json);
       const pm = json.filter(
         (item: any) =>
           item.designation === "pm" && item.employeeStatus === "active"
@@ -143,7 +145,7 @@ const AddProject = () => {
       alert(error.response.data);
     }
   };
-  console.log("pm", pm);
+
   return (
     <div
       style={{
@@ -205,17 +207,7 @@ const AddProject = () => {
             helperText={formik.touched.client && formik.errors.client}
             sx={{ marginBottom: 2 }}
           />
-          {/* <TextField
-            fullWidth
-            id="pm"
-            name="pm"
-            label="PM Name"
-            value={formik.values.pm}
-            onChange={formik.handleChange}
-            error={formik.touched.pm && Boolean(formik.errors.pm)}
-            helperText={formik.touched.pm && formik.errors.pm}
-            sx={{ marginBottom: 2 }}
-          /> */}
+
           <InputLabel id="pm">PM Name</InputLabel>
           <Select
             labelId="pm"
@@ -231,17 +223,7 @@ const AddProject = () => {
               return <MenuItem value={item.name}>{item.name}</MenuItem>;
             })}
           </Select>
-          {/* <TextField
-            fullWidth
-            id="status"
-            name="status"
-            label="Project Status"
-            value={formik.values.status}
-            onChange={formik.handleChange}
-            error={formik.touched.status && Boolean(formik.errors.status)}
-            helperText={formik.touched.status && formik.errors.status}
-            sx={{ marginBottom: 2 }}
-          /> */}
+
           <InputLabel id="status">Status</InputLabel>
           <Select
             labelId="status"
@@ -256,10 +238,7 @@ const AddProject = () => {
             <MenuItem value="active">Active</MenuItem>
             <MenuItem value="inactive">Inactive</MenuItem>
           </Select>
-          {/* <DateRangePick
-          ProjectDurationValue={ProjectDurationValue}
-          setProjectDurationValue={setProjectDurationValue}
-        /> */}
+
           <DateRangePick
             id="duration"
             name="duration"

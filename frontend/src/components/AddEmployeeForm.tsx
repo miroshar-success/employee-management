@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import NotFound from "../pages/NotFound";
 import AddEmployeeInfo from "./AddEmployeeInfo";
 import AddEmployeeProfessional from "./AddEmployeeProfessional";
 import AddEmployeeProject from "./AddEmployeeProject";
-import SuccessInfo from "./SuccessInfo";
+import ErrorInfo from "./ErrorInfo";
 
 type employeeInfoType = {
   step: number;
@@ -127,21 +127,34 @@ const AddEmployeeForm = ({
 
   const postEmployeeData = async () => {
     try {
-      const postData = await axios.post(
-        "http://localhost:5000/api/v1/addemployee",
-        employeeDetails,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const checkData = checkValue();
+      if (checkData === true) {
+        const postData = await axios.post(
+          "http://localhost:5000/api/v1/addemployee",
+          employeeDetails,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
-      navigate("/profiles");
+        navigate("/profiles");
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const checkValue = () => {
+    Object.keys(employeeDetails).forEach((key) => {
+      if (employeeDetails[key] === "") {
+        alert(`Please fill ${key}`);
+        return false;
+      }
+    });
+    return true;
   };
 
   useEffect(() => {
@@ -307,7 +320,7 @@ const AddEmployeeForm = ({
           />
         );
       case 4:
-        return <SuccessInfo />;
+        return <ErrorInfo />;
       default:
         return <NotFound />;
     }

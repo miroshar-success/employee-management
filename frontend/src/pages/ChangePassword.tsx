@@ -1,9 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [newPassword, setNewPassword] = React.useState("");
@@ -17,7 +18,6 @@ const ChangePassword = () => {
     e.preventDefault();
 
     if (newPassword === confirmPassword) {
-      // console.log("decoded", decoded);
       decoded.email ? forgetPassword() : changePassword();
     } else {
       alert("Password does not match");
@@ -36,7 +36,7 @@ const ChangePassword = () => {
       }
     );
     const data = await res.data;
-    console.log("data", data);
+
     alert(data.message);
     navigate("/myprofile");
   };

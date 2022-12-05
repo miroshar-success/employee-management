@@ -1,6 +1,6 @@
-import { Box } from "@mui/material";
-import axios from "axios";
 import React, { useEffect } from "react";
+import axios from "axios";
+import { Box } from "@mui/material";
 
 const ShowNotice = () => {
   const [showNotice, setShowNotice] = React.useState([]);
@@ -12,15 +12,13 @@ const ShowNotice = () => {
   const getNotice = async () => {
     try {
       axios.get("http://localhost:5000/api/v1/notice").then((res) => {
-        console.log("res", res.data);
         const data = res.data;
         const user: any = JSON.parse(localStorage.getItem("user") || "{}");
-        console.log("user", user.email);
+
         const myNotice = data.filter((notice: any) => {
           return notice.email === "" || notice.email === user.email;
         });
         setShowNotice(myNotice);
-        console.log("myNotice", myNotice);
       });
     } catch (error) {
       console.log(error);

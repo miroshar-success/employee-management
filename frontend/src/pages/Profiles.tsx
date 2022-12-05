@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import DataTable from "../components/DataTable";
-import { isAdmin } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import DataTable from "../components/DataTable";
+import { isAdmin } from "../utils/auth";
 
 const Profiles = ({
   isprofiles,
@@ -29,14 +30,11 @@ const Profiles = ({
         },
       });
 
-      console.log("response", response.data);
       setAllProfiles(response.data);
     } catch (error: any) {
       alert(error.response.data);
     }
   };
-
-  console.log("fecthProfilesData", allProfiles);
 
   setIsProfiles(true);
   return (
