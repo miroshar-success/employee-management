@@ -1,13 +1,14 @@
-import React from "react";
-import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import DatePick from "./DatePick";
+import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import DatePick from "./DatePick";
 
 const AddEmployeeInfo = ({
   handleChange,
