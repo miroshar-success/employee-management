@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { isLogin } from "../utils/auth";
+import { isAdmin, isLogin } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { Box, Card, Typography } from "@mui/material";
 
@@ -13,6 +13,7 @@ const Homepage = () => {
     const employeeHome: any = JSON.parse(localStorage.getItem("user") || "{}");
     setUserName(employeeHome.name);
   }, []);
+
   return (
     <div>
       <Box
@@ -38,6 +39,9 @@ const Homepage = () => {
         >
           <Typography variant="h4" component="div" sx={{ margin: "auto" }}>
             Welcome {userName}
+            <br />
+            <br />
+            {isAdmin() ? <p>Hi Admin !</p> : <p>Hi Employee !</p>}
           </Typography>
         </Card>
       </Box>
